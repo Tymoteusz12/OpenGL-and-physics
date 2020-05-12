@@ -39,12 +39,6 @@
     <ClCompile Include="Źródło.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="lights.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Try\Dependencies\GLAD\src\glad.c">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
     <ClCompile Include="WindowInit.h">
       <Filter>PotrzebneKlasy</Filter>
     </ClCompile>
@@ -56,6 +50,12 @@
     </ClCompile>
     <ClCompile Include="Shaders.cpp">
       <Filter>PotrzebneKlasy</Filter>
+    </ClCompile>
+    <ClCompile Include="mainSource.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Dependencies\GLAD\src\glad.c">
+      <Filter>Pliki źródłowe</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -77,12 +77,6 @@
     <ClInclude Include="OBJloader.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\models\lights_template1\lights_template1\mesh.h">
-      <Filter>PotrzebneKlasy</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\models\lights_template1\lights_template1\model.h">
-      <Filter>PotrzebneKlasy</Filter>
-    </ClInclude>
     <ClInclude Include="booleans.h">
       <Filter>Pliki źródłowe\namespaces</Filter>
     </ClInclude>
@@ -94,6 +88,12 @@
     </ClInclude>
     <ClInclude Include="vectors.h">
       <Filter>Pliki źródłowe\namespaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Dependencies\headers\mesh.h">
+      <Filter>PotrzebneKlasy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Dependencies\headers\model.h">
+      <Filter>PotrzebneKlasy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

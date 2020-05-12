@@ -2,7 +2,7 @@
 #define SHADER_H
 
 #include <glad/glad.h>
-#include <glm/glm/glm.hpp>
+#include <glm/glm.hpp>
 #include <fstream>
 #include <iostream>
 using namespace std;

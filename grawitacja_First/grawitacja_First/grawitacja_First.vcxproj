@@ -88,12 +88,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Tymek\Desktop\OPENGL_LIB\Try\Dependencies\assimp_include\include;C:\Users\Tymek\Desktop\OPENGL_LIB\Try\Dependencies\glm-0.9.8.5;C:\Users\Tymek\Desktop\OPENGL_LIB\Try\Dependencies\stb-master;C:\Users\Tymek\Desktop\OPENGL_LIB\Try\Dependencies\headers;C:\Users\Tymek\Desktop\OPENGL_LIB\Try\Dependencies\GLFW\include;C:\Users\Tymek\Desktop\OPENGL_LIB\Try\Dependencies\GLAD\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Dependencies\assimp_include\include;C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Dependencies\glm-0.9.8.5\glm;C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Dependencies\stb-master;C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Dependencies\headers;C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Dependencies\GLFW\include;C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Dependencies\GLAD\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Tymek\Desktop\OPENGL_LIB\Try\Dependencies\assimp_lib;C:\Users\Tymek\Desktop\OPENGL_LIB\Try\Dependencies\GLFW\lib-vc2019;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Dependencies\assimp_lib;C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Dependencies\GLFW\lib-vc2019;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>assimp-vc142-mtd.lib;opengl32.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -117,14 +117,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Tymek\Desktop\OPENGL_LIB\Try\Dependencies\assimp_include\include;C:\Users\Tymek\Desktop\OPENGL_LIB\Try\Dependencies\glm-0.9.8.5;C:\Users\Tymek\Desktop\OPENGL_LIB\Try\Dependencies\stb-master;C:\Users\Tymek\Desktop\OPENGL_LIB\Try\Dependencies\headers;C:\Users\Tymek\Desktop\OPENGL_LIB\Try\Dependencies\GLFW\include;C:\Users\Tymek\Desktop\OPENGL_LIB\Try\Dependencies\GLAD\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Dependencies\assimp_include\include;C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Dependencies\glm-0.9.8.5\glm;C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Dependencies\stb-master;C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Dependencies\headers;C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Dependencies\GLFW\include;C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Dependencies\GLAD\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Tymek\Desktop\OPENGL_LIB\Try\Dependencies\assimp_lib;C:\Users\Tymek\Desktop\OPENGL_LIB\Try\Dependencies\GLFW\lib-vc2019;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Dependencies\assimp_lib;C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Dependencies\GLFW\lib-vc2019;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>assimp-vc142-mtd.lib;opengl32.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -145,17 +145,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\Try\Dependencies\GLAD\src\glad.c" />
+    <ClCompile Include="..\..\Dependencies\GLAD\src\glad.c" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="cubeClass.cpp" />
-    <ClCompile Include="lights.cpp" />
+    <ClCompile Include="mainSource.cpp" />
     <ClCompile Include="Shaders.cpp" />
     <ClCompile Include="WindowInit.h" />
     <ClCompile Include="Źródło.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\models\lights_template1\lights_template1\mesh.h" />
-    <ClInclude Include="..\..\..\models\lights_template1\lights_template1\model.h" />
+    <ClInclude Include="..\..\Dependencies\headers\mesh.h" />
+    <ClInclude Include="..\..\Dependencies\headers\model.h" />
     <ClInclude Include="arrays.h" />
     <ClInclude Include="booleans.h" />
     <ClInclude Include="camera.h" />
