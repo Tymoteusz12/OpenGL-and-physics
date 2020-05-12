@@ -14,5 +14,5 @@ namespace variables {
 	const float sunScale = 10000.0f;
 	int skipVar = 0;
 
-	const float constG(1.0f);
+	const float constG(0.1f);
 }

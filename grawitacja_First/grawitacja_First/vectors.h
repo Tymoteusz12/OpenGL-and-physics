@@ -1,5 +1,6 @@
 namespace vectors {
 
+    glm::vec3 bodySize = glm::vec3(1.0f);
     glm::vec3 speedVec = glm::vec3(21.0f);
     glm::mat4 view = glm::mat4(1.0f);
     glm::mat4 projection = glm::mat4(1.0f);

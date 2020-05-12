@@ -26,7 +26,7 @@ using namespace vectors;
 Camera mainCamera(width, height, gravityForce);
 
 float findModelSpeed(modelProperties, modelProperties);
-glm::vec3 countForce(modelProperties);
+glm::vec3 countResultantForce(vector <modelProperties>&, int);
 
 lastPosition lastPos;
 void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
@@ -69,62 +69,60 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 	mainCamera.mouse_callback(window, xpos, ypos);
 }
 
-void restartPositionIfProperConditions(bool isFlying, bool &speedNotSet, Model& mainModel, CreateShader* shader) {
-	if (!isFlying) {
-		//tempVec = glm::vec3(0.0f);
-		testingSphere = mainCamera.cameraPos + testingSpherePosition * mainCamera.cameraFront;
-		throwDirection = mainCamera.cameraFront;
-		speedNotSet = true;
-		model = glm::mat2(1.0f);
-		model = glm::translate(model, testingSphere);
-		model = glm::scale(model, glm::vec3(1.0f));
-		shader->setMat4("model", model);
-		mainModel.Draw(*shader);
-	}
-}
+void updateModelPosition(vector <modelProperties> &modelArray, Model &mainModel, CreateShader *shader, int index) {
 
-void countProperSpeedVector(bool &isFlying, bool &speedNotSet) {
-	if (isFlying and speedNotSet) {
-		speedVec = constSpeed * throwDirection;
-		speedNotSet = false;
-	}
-}
-
-void updateModelPosition(modelProperties &body, Model &mainModel, CreateShader *shader, int index) {
-
-		glm::vec3 force = countForce(body);
+		glm::vec3 force = countResultantForce(modelArray, index);
 
 		tempVec[index] += force * refreshValue;
 
-		body.position += (body.vMax + tempVec[index])*refreshValue;
+		modelArray[index].position += (modelArray[index].vMax + tempVec[index])*refreshValue;
 
 		model = glm::mat4(1.0f);
-		model = glm::translate(model, body.position);
-		model = glm::scale(model, glm::vec3(0.5f));
+		if (index == 0)
+			bodySize = glm::vec3(1.0f);
+		else
+			bodySize = glm::vec3(0.3f);
+		model = glm::translate(model, modelArray[index].position);
+		model = glm::scale(model, bodySize);
 		shader->setMat4("model", model);
 		mainModel.Draw(*shader);
 
 }
 
-glm::vec3 countForce(modelProperties earth) {
+glm::vec3 countResultantForce(vector <modelProperties>& modelArray, int index) {
 
-		float vectorLength = pow(earth.position.x, 2.0) + pow(earth.position.y, 2.0) + pow(earth.position.z, 2.0);
-		glm::vec3 direction = glm::normalize(glm::vec3(-earth.position.x, -earth.position.y, -earth.position.z));
+	glm::vec3 resultantForce = glm::vec3(0.0f);
+		
+	for (int i = 0; i < modelArray.size(); i++) {
+		if (i == index) continue;
+
+		float vectorLength = glm::length(modelArray[i].position - modelArray[index].position);
+		glm::vec3 direction = glm::normalize(modelArray[i].position - modelArray[index].position);
 		glm::vec3 force = glm::vec3(0.0f);
-		if (vectorLength != 0.0f)
-			force = ((constG * sun.mass) / vectorLength) * direction;
-		else
-			force = glm::vec3(0.0f);
 
-		return force;
+		if (vectorLength != 0.0f)
+			force = ((constG * modelArray[i].mass) / (vectorLength * vectorLength)) * direction;
+
+		resultantForce += force;
+
+		}
+
+	return resultantForce;
 }
 
 void loadModelProperties() {
 
 	modelProperties temp{};
 	int modelAmount{};
+
 	cout << "Load number of models: " << endl;
 	cin >> modelAmount;
+
+	cout << "Load sun mass: " << endl;
+	cin >> temp.mass;
+
+	modelArray.push_back(temp);
+	tempVec.push_back(glm::vec3(0.0f));
 
 	for (int i = 0; i < modelAmount; i++) {
 
@@ -142,7 +140,7 @@ void loadModelProperties() {
 
 		temp.position = glm::vec3(0.0f, 0.0f, temp.peryhelium);
 
-		float vMax = findModelSpeed(temp, sun);
+		float vMax = findModelSpeed(temp, modelArray[0]);
 
 		temp.vMax = glm::vec3(vMax, 0.0f, 0.0f);
 
@@ -151,9 +149,9 @@ void loadModelProperties() {
 	}
 }
 
-float findModelSpeed(modelProperties model, modelProperties sun) {
+float findModelSpeed(modelProperties model, modelProperties main) {
 
-	float constVal = -2 * constG * sun.mass * (1 / model.aphelium - 1 / model.peryhelium);
+	float constVal = -2 * constG * main.mass * (1 / model.aphelium - 1 / model.peryhelium);
 	float kepler = 1 - pow(model.peryhelium / model.aphelium, 2.0f);
 	float vMax = sqrt(constVal / kepler);
 
@@ -211,22 +209,13 @@ int main(void)
 			viewModel->shaderPointer = BlockShader;
 			BlockShader->setMat4("projection", projection);
 			BlockShader->setMat4("view", view);
-			model = glm::mat4(1.0f);
-			model = glm::scale(model, glm::vec3(1.0f));
 			BlockShader->setMat4("model", model);
 			BlockShader->setVec3("viewPos", mainCamera.cameraPos);
 			viewModel->setMaterialProperties(0, 32.0f);
 			viewModel->setSpotLightProperties(spotLightVecProperties, spotLightFloatProperties);
-			mainModel.Draw(*BlockShader);
-
-			//restartPositionIfProperConditions(isFlying, speedNotSet, mainModel, BlockShader);
-
-			//countProperSpeedVector(isFlying, speedNotSet);
-
 			
-
 			for (int i = 0; i < modelArray.size(); i++) 
-				updateModelPosition(modelArray[i], mainModel, BlockShader, i);
+				updateModelPosition(modelArray, mainModel, BlockShader, i);
 			
 			glfwSwapBuffers(window);
 

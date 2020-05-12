@@ -1,12 +1,12 @@
 namespace complexTypes {
 
     struct modelProperties {
-        float mass;
-        float radius;
-        float peryhelium;
-        float aphelium;
-        glm::vec3 position;
-        glm::vec3 vMax;
+        float mass = 0.0f;
+        float radius = 0.0f;
+        float peryhelium = 0.0f;
+        float aphelium = 0.0f;
+        glm::vec3 position = glm::vec3(0.0f);
+        glm::vec3 vMax = glm::vec3(0.0f);
     };
 
     modelProperties sun = {
