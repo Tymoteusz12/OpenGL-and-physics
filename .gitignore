@@ -30,8 +30,3 @@
 *.exe
 *.out
 *.app
-
-# Added by Tymoteusz 
-* C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\grawitacja_First.vcxproj
-* grawitacja_First.vcxproj.filters
-* grawitacja_First.vcxproj.user
