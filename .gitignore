@@ -32,6 +32,6 @@
 *.app
 
 # Added by Tymoteusz 
-*.vcxproj.user
-*.vcxproj.filters
-*.vcxproj
+* grawitacja_First.vcxproj
+* grawitacja_First.vcxproj.filters
+* grawitacja_First.vcxproj.user
