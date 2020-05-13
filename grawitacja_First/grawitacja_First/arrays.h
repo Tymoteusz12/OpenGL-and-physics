@@ -9,6 +9,4 @@ namespace arrays {
         1.0f, 0.0f, 0.0f, glm::cos(glm::radians(45.0f)), glm::cos(glm::radians(45.0f))
     };
 
-    vector<complexTypes::modelProperties> modelArray;
-    vector<glm::vec3> tempVec;
 }

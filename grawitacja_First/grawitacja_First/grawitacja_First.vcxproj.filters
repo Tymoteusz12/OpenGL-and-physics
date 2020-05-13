@@ -57,6 +57,9 @@
     <ClCompile Include="..\..\Dependencies\GLAD\src\glad.c">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
+    <ClCompile Include="gravityPhysics.cpp">
+      <Filter>PotrzebneKlasy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -93,6 +96,9 @@
       <Filter>PotrzebneKlasy</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Dependencies\headers\model.h">
+      <Filter>PotrzebneKlasy</Filter>
+    </ClInclude>
+    <ClInclude Include="gravityPhysics.h">
       <Filter>PotrzebneKlasy</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,3 +1,5 @@
+#ifndef _variables_
+#define _variables_
 namespace variables {
 
 	float width = 800.0f;
@@ -7,12 +9,8 @@ namespace variables {
 
 	float moveDeltaTime = 0.0f, moveCurrentFrame = 0.0f, moveLastFrame = 0.0f, moveFrameAfter;
 
-	const float scale = 1.0E-2;
-
 	const float refreshValue = 1.0E-2;
-	const float sunRadius = 6.9634E8 * scale;
-	const float sunScale = 10000.0f;
-	int skipVar = 0;
 
 	const float constG(0.1f);
 }
+#endif

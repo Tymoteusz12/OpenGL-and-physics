@@ -148,6 +148,7 @@
     <ClCompile Include="..\..\Dependencies\GLAD\src\glad.c" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="cubeClass.cpp" />
+    <ClCompile Include="gravityPhysics.cpp" />
     <ClCompile Include="mainSource.cpp" />
     <ClCompile Include="Shaders.cpp" />
     <ClCompile Include="WindowInit.h" />
@@ -161,6 +162,7 @@
     <ClInclude Include="camera.h" />
     <ClInclude Include="complexTypes.h" />
     <ClInclude Include="cubeClass.h" />
+    <ClInclude Include="gravityPhysics.h" />
     <ClInclude Include="OBJloader.h" />
     <ClInclude Include="Shaders.h" />
     <ClInclude Include="resource.h" />

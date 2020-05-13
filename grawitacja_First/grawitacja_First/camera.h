@@ -12,6 +12,7 @@ class Camera
 private:
 	float cameraSpeed = 1.0f;
 	bool firstMouse = true;
+	bool viewMode = false;
 	float width, height;
 	float lastx = 0.0f, lasty = 0.0f;
 	float deltaTime = 0.0f;
@@ -27,6 +28,7 @@ public:
 	glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
 	Camera(float width, float height, const glm::vec3 gravityForce);
+	Camera(float width, float height);
 	Camera() {}
 
 	glm::mat4 CreateViewMatrix();
@@ -39,6 +41,8 @@ public:
 	void UseCameraWithGravity(GLFWwindow* window);
 
 	void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+
+	void setPositionAndDirection(glm::vec3 position, float pitch);
 
 };
 

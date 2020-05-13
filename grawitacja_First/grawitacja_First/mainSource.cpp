@@ -5,6 +5,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "Shaders.h"
 #include "WindowInit.h"
+#include "gravityPhysics.h"
 #include "variables.h"
 #include "camera.h"
 #include "cubeClass.h"
@@ -13,7 +14,6 @@
 #include "complexTypes.h"
 #include "arrays.h"
 #include "vectors.h"
-
 #include <iostream>
 
 using namespace std;
@@ -23,42 +23,24 @@ using namespace complexTypes;
 using namespace arrays;
 using namespace vectors;
 
-Camera mainCamera(width, height, gravityForce);
-
-float findModelSpeed(modelProperties, modelProperties);
-glm::vec3 countResultantForce(vector <modelProperties>&, int);
+Camera mainCamera(width, height);
 
 lastPosition lastPos;
 void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
 	glViewport(0, 0, width, height);
 }
 
-void setDirectionAndPosition(glm::vec3 cameraPos, float cameraPitch) {
-	mainCamera.cameraPos = cameraPos;
-	mainCamera.pitch = cameraPitch;
-	mainCamera.yaw = -90.0f;
-	glm::vec3 direction;
-	direction.x = cos(glm::radians(mainCamera.yaw)) * cos(glm::radians(mainCamera.pitch));
-	direction.y = sin(glm::radians(mainCamera.pitch));
-	direction.z = sin(glm::radians(mainCamera.yaw)) * cos(glm::radians(mainCamera.pitch));
-	mainCamera.cameraFront = glm::normalize(direction);
-}
-
 void processInput(GLFWwindow* window, float deltaTime) {
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
-	if (glfwGetKey(window, GLFW_KEY_F1) == GLFW_PRESS)
-		isFlying = false;
-	if (glfwGetKey(window, GLFW_KEY_F2) == GLFW_PRESS)
-		isFlying = true;
-	if (glfwGetKey(window, GLFW_KEY_F3) == GLFW_PRESS and !viewMode) {
+	if (glfwGetKey(window, GLFW_KEY_F1) == GLFW_PRESS and !viewMode) {
 		lastPos.cameraPosition = mainCamera.cameraPos;
-		setDirectionAndPosition(glm::vec3(0.0f,50.0f, 0.0f), -89.0f);
+		mainCamera.setPositionAndDirection(glm::vec3(0.0f,50.0f, 0.0f), -89.0f);
 		viewMode = true;
 	}
-	if (glfwGetKey(window, GLFW_KEY_F4) == GLFW_PRESS and viewMode) {
+	if (glfwGetKey(window, GLFW_KEY_F2) == GLFW_PRESS and viewMode) {
 		mainCamera.cameraPos = lastPos.cameraPosition;
-		setDirectionAndPosition(mainCamera.cameraPos, 0.0f);
+		mainCamera.setPositionAndDirection(mainCamera.cameraPos, 0.0f);
 		viewMode = false;
 	}
 	
@@ -69,93 +51,19 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 	mainCamera.mouse_callback(window, xpos, ypos);
 }
 
-void updateModelPosition(vector <modelProperties> &modelArray, Model &mainModel, CreateShader *shader, int index) {
+void updateModelPositions(Gravity &solarSystem, Model &mainModel, CreateShader *shader, int index) {
 
-		glm::vec3 force = countResultantForce(modelArray, index);
+		solarSystem.findResultantForce(index);
+		solarSystem.updatePosition(index);
 
-		tempVec[index] += force * refreshValue;
-
-		modelArray[index].position += (modelArray[index].vMax + tempVec[index])*refreshValue;
+		float radiusToScale = solarSystem.modelArray[index].radius;
+		glm::vec3 positionToDraw = solarSystem.modelArray[index].position;
 
 		model = glm::mat4(1.0f);
-		if (index == 0)
-			bodySize = glm::vec3(1.0f);
-		else
-			bodySize = glm::vec3(0.3f);
-		model = glm::translate(model, modelArray[index].position);
-		model = glm::scale(model, bodySize);
+		model = glm::translate(model, positionToDraw);
+		model = glm::scale(model, glm::vec3(radiusToScale));
 		shader->setMat4("model", model);
 		mainModel.Draw(*shader);
-
-}
-
-glm::vec3 countResultantForce(vector <modelProperties>& modelArray, int index) {
-
-	glm::vec3 resultantForce = glm::vec3(0.0f);
-		
-	for (int i = 0; i < modelArray.size(); i++) {
-		if (i == index) continue;
-
-		float vectorLength = glm::length(modelArray[i].position - modelArray[index].position);
-		glm::vec3 direction = glm::normalize(modelArray[i].position - modelArray[index].position);
-		glm::vec3 force = glm::vec3(0.0f);
-
-		if (vectorLength != 0.0f)
-			force = ((constG * modelArray[i].mass) / (vectorLength * vectorLength)) * direction;
-
-		resultantForce += force;
-
-		}
-
-	return resultantForce;
-}
-
-void loadModelProperties() {
-
-	modelProperties temp{};
-	int modelAmount{};
-
-	cout << "Load number of models: " << endl;
-	cin >> modelAmount;
-
-	cout << "Load sun mass: " << endl;
-	cin >> temp.mass;
-
-	modelArray.push_back(temp);
-	tempVec.push_back(glm::vec3(0.0f));
-
-	for (int i = 0; i < modelAmount; i++) {
-
-		cout << i + 1 << " Enter model mass: " << endl;
-		cin >> temp.mass;
-
-		cout << i + 1 << " Enter model aphelium: " << endl;
-		cin >> temp.aphelium;
-
-		cout << i + 1 << " Enter model peryhelium: " << endl;
-		cin >> temp.peryhelium;
-
-	//	cout << i + 1 << " Enter model radius: " << endl;
-		//temp.radius = 1;
-
-		temp.position = glm::vec3(0.0f, 0.0f, temp.peryhelium);
-
-		float vMax = findModelSpeed(temp, modelArray[0]);
-
-		temp.vMax = glm::vec3(vMax, 0.0f, 0.0f);
-
-		modelArray.push_back(temp);
-		tempVec.push_back(glm::vec3(0.0f));
-	}
-}
-
-float findModelSpeed(modelProperties model, modelProperties main) {
-
-	float constVal = -2 * constG * main.mass * (1 / model.aphelium - 1 / model.peryhelium);
-	float kepler = 1 - pow(model.peryhelium / model.aphelium, 2.0f);
-	float vMax = sqrt(constVal / kepler);
-
-	return vMax;
 }
 
 int main(void)
@@ -177,14 +85,17 @@ int main(void)
 
 	CreateShader* BlockShader = new CreateShader("VertexShaderCode.glsl", "FragmentShaderCode.glsl");
 
-	model3D* viewModel = new model3D(&mainCamera, BlockShader, gravityForce, glm::vec3(0.0f));
+	model3D* viewModel = new model3D(&mainCamera, BlockShader, glm::vec3(0.0f), glm::vec3(0.0f));
 	Model mainModel("C:/Users/Tymek/Documents/BlenderObjFiles/sun2.obj");
 	
 	viewModel->loadTexture("textures/suntxt.jpg");
 
-	glEnable(GL_DEPTH_TEST);
+	Gravity solarSystem(constG, refreshValue);
+	
+	solarSystem.loadSunData();
+	solarSystem.loadPlanetsData();
 
-	loadModelProperties();
+	glEnable(GL_DEPTH_TEST);
 
 	while (!glfwWindowShouldClose(window)) {
 
@@ -214,8 +125,8 @@ int main(void)
 			viewModel->setMaterialProperties(0, 32.0f);
 			viewModel->setSpotLightProperties(spotLightVecProperties, spotLightFloatProperties);
 			
-			for (int i = 0; i < modelArray.size(); i++) 
-				updateModelPosition(modelArray, mainModel, BlockShader, i);
+			for (int i = 0; i < solarSystem.modelArray.size(); i++) 
+				updateModelPositions(solarSystem, mainModel, BlockShader, i);
 			
 			glfwSwapBuffers(window);
 

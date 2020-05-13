@@ -3,6 +3,9 @@
 Camera::Camera(float width, float height, const glm::vec3 gravityForce) :
 	width(width), height(height), gravity(gravityForce), lastx(width / 2), lasty(height / 2) {}
 
+Camera::Camera(float width, float height) :
+	width(width), height(height), lastx(width / 2), lasty(height / 2) {}
+
 glm::mat4 Camera::CreateViewMatrix() {
 	return glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 }
@@ -92,6 +95,17 @@ void Camera::mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 
 	glm::vec3 direction;
 
+	direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+	direction.y = sin(glm::radians(pitch));
+	direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+	cameraFront = glm::normalize(direction);
+}
+
+void Camera::setPositionAndDirection(glm::vec3 position, float pitch){
+	cameraPos = position;
+	pitch = pitch;
+	yaw = -90.0f;
+	glm::vec3 direction;
 	direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
 	direction.y = sin(glm::radians(pitch));
 	direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
