@@ -170,6 +170,8 @@
     <ClInclude Include="vectors.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\..\..\..\Desktop\OPENGL_LIB\lights_review\lights_review\lights_review\cubeFragment.glsl" />
+    <None Include="..\..\..\..\..\..\Desktop\OPENGL_LIB\lights_review\lights_review\lights_review\cubeVertex.glsl" />
     <None Include="FragmentShaderCode.glsl" />
     <None Include="LightFragmentShader.glsl" />
     <None Include="LightVertexShader.glsl" />

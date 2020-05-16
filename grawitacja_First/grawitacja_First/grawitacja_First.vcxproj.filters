@@ -34,6 +34,9 @@
     <Filter Include="Pliki źródłowe\includes">
       <UniqueIdentifier>{c055fddb-932b-4a54-b98a-4c7269567976}</UniqueIdentifier>
     </Filter>
+    <Filter Include="shaders\Cube map">
+      <UniqueIdentifier>{b4588051-dda8-40f9-ba2b-d70a431257ec}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Źródło.cpp">
@@ -120,6 +123,12 @@
     </None>
     <None Include="rgbaVertex.glsl">
       <Filter>shaders\ObjectShaders\rgba</Filter>
+    </None>
+    <None Include="..\..\..\..\..\..\Desktop\OPENGL_LIB\lights_review\lights_review\lights_review\cubeFragment.glsl">
+      <Filter>shaders\Cube map</Filter>
+    </None>
+    <None Include="..\..\..\..\..\..\Desktop\OPENGL_LIB\lights_review\lights_review\lights_review\cubeVertex.glsl">
+      <Filter>shaders\Cube map</Filter>
     </None>
   </ItemGroup>
 </Project>

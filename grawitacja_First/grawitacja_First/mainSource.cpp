@@ -23,6 +23,38 @@ using namespace complexTypes;
 using namespace arrays;
 using namespace vectors;
 
+unsigned int loadCubemap(vector<string> faces) {
+
+	unsigned int textureID;
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
+
+	int width, height, nrChannels;
+	for (unsigned int i = 0; i < faces.size(); i++) {
+
+		unsigned char* data = stbi_load(faces[i].c_str(), &width, &height, &nrChannels, 0);
+		if (data) {
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
+				0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data
+			);
+			stbi_image_free(data);
+		}
+
+		else {
+			cout << "Cubemap tex failed to load at path: " << faces[i] << endl;
+			stbi_image_free(data);
+		}
+	}
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+	return textureID;
+
+}
+
 Camera mainCamera(width, height);
 
 lastPosition lastPos;
@@ -84,6 +116,7 @@ int main(void)
 	}
 
 	CreateShader* BlockShader = new CreateShader("VertexShaderCode.glsl", "FragmentShaderCode.glsl");
+	CreateShader* skyShader = new CreateShader("cubeVertex.glsl", "cubeFragment.glsl");
 
 	model3D* viewModel = new model3D(&mainCamera, BlockShader, glm::vec3(0.0f), glm::vec3(0.0f));
 	Model mainModel("C:/Users/Tymek/Documents/BlenderObjFiles/sun2.obj");
@@ -95,12 +128,25 @@ int main(void)
 	solarSystem.loadSunData();
 	solarSystem.loadPlanetsData();
 
+	unsigned int cubemapTexture = loadCubemap(faces);
+
+	unsigned int skyboxVBO, skyboxVAO;
+
+	glGenVertexArrays(1, &skyboxVAO);
+	glGenBuffers(1, &skyboxVBO);
+
+	glBindVertexArray(skyboxVAO);
+	glBindBuffer(GL_ARRAY_BUFFER, skyboxVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(skyboxVertices), skyboxVertices, GL_STATIC_DRAW);
+
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	while (!glfwWindowShouldClose(window)) {
-
-			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, viewModel->myTextures[0]);
 
 			currentFrame = glfwGetTime();
 			deltaTime = currentFrame - lastFrame;
@@ -111,6 +157,22 @@ int main(void)
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			projection = mainCamera.CreateProjectionMatix(viewAngle, width, height);
+			view = glm::mat4(glm::mat3(mainCamera.CreateViewMatrix()));
+
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, viewModel->myTextures[0]);
+			glActiveTexture(GL_TEXTURE1);
+			glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+
+			glDepthMask(GL_FALSE);
+			skyShader->useProgram();
+			skyShader->setMat4("projection", projection);
+			skyShader->setMat4("view", view);
+			skyShader->setInt("skybox", 1);
+			glBindVertexArray(skyboxVAO);
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+			glDepthMask(GL_TRUE);
+
 			view = mainCamera.CreateViewMatrix();
 
 			spotLightVecProperties[0] = mainCamera.cameraPos;
