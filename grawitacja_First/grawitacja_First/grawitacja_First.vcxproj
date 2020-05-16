@@ -162,6 +162,7 @@
     <ClInclude Include="camera.h" />
     <ClInclude Include="complexTypes.h" />
     <ClInclude Include="cubeClass.h" />
+    <ClInclude Include="cubemap.h" />
     <ClInclude Include="gravityPhysics.h" />
     <ClInclude Include="OBJloader.h" />
     <ClInclude Include="Shaders.h" />
@@ -170,8 +171,8 @@
     <ClInclude Include="vectors.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\..\..\Desktop\OPENGL_LIB\lights_review\lights_review\lights_review\cubeFragment.glsl" />
-    <None Include="..\..\..\..\..\..\Desktop\OPENGL_LIB\lights_review\lights_review\lights_review\cubeVertex.glsl" />
+    <None Include="cubeFragment.glsl" />
+    <None Include="cubeVertex.glsl" />
     <None Include="FragmentShaderCode.glsl" />
     <None Include="LightFragmentShader.glsl" />
     <None Include="LightVertexShader.glsl" />

@@ -20,7 +20,7 @@ namespace arrays {
 
     };
 
-    float skyboxVertices[] = {        
+    float skyboxVertices[] = {
 
          1.0f, -1.0f, -1.0f,
          1.0f, -1.0f,  1.0f,
@@ -50,7 +50,7 @@ namespace arrays {
         -1.0f, -1.0f,  1.0f,
          1.0f, -1.0f,  1.0f,
 
-       - 1.0f, -1.0f,  1.0f,
+       -1.0f, -1.0f,  1.0f,
         -1.0f,  1.0f,  1.0f,
          1.0f,  1.0f,  1.0f,
          1.0f,  1.0f,  1.0f,
@@ -62,7 +62,7 @@ namespace arrays {
          1.0f, -1.0f, -1.0f,
          1.0f, -1.0f, -1.0f,
          1.0f,  1.0f, -1.0f,
-        -1.0f,  1.0f, -1.0f,  
+        -1.0f,  1.0f, -1.0f,
     };
 
 }
