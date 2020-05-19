@@ -165,6 +165,7 @@
     <ClInclude Include="cubemap.h" />
     <ClInclude Include="gravityPhysics.h" />
     <ClInclude Include="OBJloader.h" />
+    <ClInclude Include="orbitClass.h" />
     <ClInclude Include="Shaders.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="variables.h" />
@@ -176,6 +177,8 @@
     <None Include="FragmentShaderCode.glsl" />
     <None Include="LightFragmentShader.glsl" />
     <None Include="LightVertexShader.glsl" />
+    <None Include="orbitFragment.glsl" />
+    <None Include="orbitVertex.glsl" />
     <None Include="rgbaFragment.glsl" />
     <None Include="rgbaVertex.glsl" />
     <None Include="VertexShaderCode.glsl" />

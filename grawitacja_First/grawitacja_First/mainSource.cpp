@@ -15,6 +15,7 @@
 #include "arrays.h"
 #include "vectors.h"
 #include "cubemap.h"
+#include "orbitClass.h"
 #include <iostream>
 
 using namespace std;
@@ -55,11 +56,8 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 void updateModelPositions(Gravity &solarSystem, Model &mainModel, CreateShader *shader, int index) {
 
 		solarSystem.findResultantForce(index);
-		solarSystem.updatePosition(index);
-
 		float radiusToScale = solarSystem.modelArray[index].radius;
 		glm::vec3 positionToDraw = solarSystem.modelArray[index].position;
-
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, positionToDraw);
 		model = glm::scale(model, glm::vec3(radiusToScale));
@@ -86,13 +84,15 @@ int main(void)
 
 	CreateShader* BlockShader = new CreateShader("VertexShaderCode.glsl", "FragmentShaderCode.glsl");
 	CreateShader* skyShader = new CreateShader("cubeVertex.glsl", "cubeFragment.glsl");
+	CreateShader* orbitShader = new CreateShader("orbitVertex.glsl", "orbitFragment.glsl");
 
 	model3D* viewModel = new model3D(&mainCamera, BlockShader, glm::vec3(0.0f), glm::vec3(0.0f));
 	Model mainModel("C:/Users/Tymek/Documents/BlenderObjFiles/sun2.obj");
 	
 	viewModel->loadTexture("textures/suntxt.jpg");
 
-	Gravity solarSystem(constG, refreshValue);
+	Orbit planetOrbit(orbitShader);
+	Gravity solarSystem(constG, refreshValue, &planetOrbit);
 	
 	solarSystem.loadSunData();
 	solarSystem.loadPlanetsData();
@@ -119,6 +119,19 @@ int main(void)
 
 			spotLightVecProperties[0] = mainCamera.cameraPos;
 			spotLightVecProperties[1] = mainCamera.cameraFront;
+
+			model = glm::mat4(1.0f);
+			orbitShader->useProgram();
+			orbitShader->setMat4("projection", projection);
+			orbitShader->setMat4("view", view);
+			orbitShader->setMat4("model", model);
+			for (int i = 0; i < solarSystem.modelArray.size(); i++) {
+				vector<glm::vec3> pathVertices = solarSystem.findOrbitPath(i, deltaTime);
+				if (pathVertices.size() != 0) {
+					solarSystem.orbitPointer->addVertices(pathVertices);
+					solarSystem.orbitPointer->drawOrbit();
+				}
+			}
 
 			BlockShader->useProgram();
 			viewModel->shaderPointer = BlockShader;

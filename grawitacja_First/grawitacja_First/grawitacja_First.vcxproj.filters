@@ -107,6 +107,9 @@
     <ClInclude Include="cubemap.h">
       <Filter>PotrzebneKlasy</Filter>
     </ClInclude>
+    <ClInclude Include="orbitClass.h">
+      <Filter>PotrzebneKlasy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="FragmentShaderCode.glsl">
@@ -132,6 +135,12 @@
     </None>
     <None Include="cubeFragment.glsl">
       <Filter>shaders\Cube map</Filter>
+    </None>
+    <None Include="orbitVertex.glsl">
+      <Filter>shaders\ObjectShaders</Filter>
+    </None>
+    <None Include="orbitFragment.glsl">
+      <Filter>shaders\ObjectShaders</Filter>
     </None>
   </ItemGroup>
 </Project>

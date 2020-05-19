@@ -1,6 +1,7 @@
-﻿  mainSource.cpp
-C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\variables.h(12,35): warning C4305: "inicjowanie": obcięcie z "double" do "float"
-C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Dependencies\headers\mesh.h(63,45): warning C4244: "argument": konwersja z "unsigned int" do "float", możliwa utrata danych
-C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\mainSource.cpp(106,30): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
-C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\mainSource.cpp(132,22): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+﻿  gravityPhysics.cpp
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\orbitClass.h(24,22): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\gravityPhysics.cpp(50,20): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\gravityPhysics.cpp(68,20): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\gravityPhysics.cpp(94,22): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\gravityPhysics.cpp(113): warning C4715: "Gravity::findOrbitPath”: niewszystkie ścieżki kodu zwracają wartość
   grawitacja_First.vcxproj -> C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\Debug\grawitacja_First.exe

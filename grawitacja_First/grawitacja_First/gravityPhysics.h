@@ -8,6 +8,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <vector>
 #include <iostream>
+#include "orbitClass.h"
 using namespace std;
 
 class Gravity {
@@ -20,10 +21,15 @@ public:
 		glm::vec3 position = glm::vec3(0.0f);
 		glm::vec3 vMax = glm::vec3(0.0f);
 	}sun, planet;
+
 	vector<modelData> modelArray;
 	vector<glm::vec3> gravityVelocity;
+	vector<glm::vec3> gravityVelCopy;
+	vector<modelData> modelArrayCopy;
 
-	Gravity(float constG, float refreshValue);
+	Orbit* orbitPointer;
+
+	Gravity(float constG, float refreshValue, Orbit *orbitPointer);
 
 	void loadSunData();
 
@@ -32,10 +38,16 @@ public:
 	void findResultantForce(int index);
 
 	void updatePosition(int index);
+
+	vector<glm::vec3> findOrbitPath(int index, float deltaTime);
 private:
+	float pointsAmount = 300.0f;
+	float speedBoost = 100.0f;
+	float refreshTime = 0;
 	const float constG;
 	const float refreshValue;
 	glm::vec3 resultantForce;
+	
 	float findModelSpeed(modelData planet, modelData sun);
 
 };
