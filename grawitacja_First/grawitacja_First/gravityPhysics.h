@@ -27,22 +27,19 @@ public:
 	vector<glm::vec3> gravityVelCopy;
 	vector<modelData> modelArrayCopy;
 
-	Orbit* orbitPointer;
-
-	Gravity(float constG, float refreshValue, Orbit *orbitPointer);
+	Gravity(float constG, float refreshValue);
 
 	void loadSunData();
-
 	void loadPlanetsData();
-
 	void findResultantForce(int index);
-
 	void updatePosition(int index);
 
 	vector<glm::vec3> findOrbitPath(int index, float deltaTime);
 private:
-	float pointsAmount = 300.0f;
-	float speedBoost = 100.0f;
+	float pointsAmount = 50.0f;
+	float equalSpeedBoost = 1 / pointsAmount;
+	float speedBoost = 10.0f;
+	float finalSpeedBoost = speedBoost * equalSpeedBoost;
 	float refreshTime = 0;
 	const float constG;
 	const float refreshValue;

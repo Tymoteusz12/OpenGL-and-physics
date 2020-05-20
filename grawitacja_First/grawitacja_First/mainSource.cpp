@@ -92,7 +92,7 @@ int main(void)
 	viewModel->loadTexture("textures/suntxt.jpg");
 
 	Orbit planetOrbit(orbitShader);
-	Gravity solarSystem(constG, refreshValue, &planetOrbit);
+	Gravity solarSystem(constG, refreshValue);
 	
 	solarSystem.loadSunData();
 	solarSystem.loadPlanetsData();
@@ -103,55 +103,53 @@ int main(void)
 
 	while (!glfwWindowShouldClose(window)) {
 
-			currentFrame = glfwGetTime();
-			deltaTime = currentFrame - lastFrame;
-			lastFrame = currentFrame;
+		currentFrame = glfwGetTime();
+		deltaTime = currentFrame - lastFrame;
+		lastFrame = currentFrame;
 
-			processInput(window, deltaTime);
-			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		processInput(window, deltaTime);
+		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, viewModel->myTextures[0]);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, viewModel->myTextures[0]);
 
-			projection = mainCamera.CreateProjectionMatix(viewAngle, width, height);
-			view = mainCamera.CreateViewMatrix();
+		projection = mainCamera.CreateProjectionMatix(viewAngle, width, height);
+		view = mainCamera.CreateViewMatrix();
 
-			spotLightVecProperties[0] = mainCamera.cameraPos;
-			spotLightVecProperties[1] = mainCamera.cameraFront;
+		spotLightVecProperties[0] = mainCamera.cameraPos;
+		spotLightVecProperties[1] = mainCamera.cameraFront;
 
-			model = glm::mat4(1.0f);
-			orbitShader->useProgram();
-			orbitShader->setMat4("projection", projection);
-			orbitShader->setMat4("view", view);
-			orbitShader->setMat4("model", model);
-			for (int i = 0; i < solarSystem.modelArray.size(); i++) {
-				vector<glm::vec3> pathVertices = solarSystem.findOrbitPath(i, deltaTime);
-				if (pathVertices.size() != 0) {
-					solarSystem.orbitPointer->addVertices(pathVertices);
-					solarSystem.orbitPointer->drawOrbit();
-				}
+		model = glm::mat4(1.0f);
+		orbitShader->useProgram();
+		orbitShader->setMat4("projection", projection);
+		orbitShader->setMat4("view", view);
+		orbitShader->setMat4("model", model);
+		for (int i = 0; i < solarSystem.modelArray.size(); i++) {
+			vector<glm::vec3> pathVertices = solarSystem.findOrbitPath(i, deltaTime);
+			if (pathVertices.size() != 0) {
+				planetOrbit.addVertices(pathVertices);
+				planetOrbit.drawOrbit();
 			}
+		}
 
-			BlockShader->useProgram();
-			viewModel->shaderPointer = BlockShader;
-			BlockShader->setMat4("projection", projection);
-			BlockShader->setMat4("view", view);
-			BlockShader->setMat4("model", model);
-			BlockShader->setVec3("viewPos", mainCamera.cameraPos);
-			viewModel->setMaterialProperties(0, 32.0f);
-			viewModel->setSpotLightProperties(spotLightVecProperties, spotLightFloatProperties);
+		BlockShader->useProgram();
+		viewModel->shaderPointer = BlockShader;
+		BlockShader->setMat4("projection", projection);
+		BlockShader->setMat4("view", view);
+		BlockShader->setMat4("model", model);
+		BlockShader->setVec3("viewPos", mainCamera.cameraPos);
+		viewModel->setMaterialProperties(0, 32.0f);
+		viewModel->setSpotLightProperties(spotLightVecProperties, spotLightFloatProperties);
 			
-			for (int i = 0; i < solarSystem.modelArray.size(); i++) 
-				updateModelPositions(solarSystem, mainModel, BlockShader, i);
+		for (int i = 0; i < solarSystem.modelArray.size(); i++) 
+			updateModelPositions(solarSystem, mainModel, BlockShader, i);
 
-			view = glm::mat4(glm::mat3(mainCamera.CreateViewMatrix()));
-
-			skyBox.drawCubemap(view, projection, skyShader);
+		view = glm::mat4(glm::mat3(mainCamera.CreateViewMatrix()));
+		skyBox.drawCubemap(view, projection, skyShader);
 			
-			glfwSwapBuffers(window);
-
-			glfwPollEvents();
+		glfwSwapBuffers(window);
+		glfwPollEvents();
 	}
 
 	glfwTerminate();

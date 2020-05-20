@@ -103,7 +103,7 @@ void Camera::mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 
 void Camera::setPositionAndDirection(glm::vec3 position, float pitch){
 	cameraPos = position;
-	pitch = pitch;
+	this->pitch = pitch;
 	yaw = -90.0f;
 	glm::vec3 direction;
 	direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));

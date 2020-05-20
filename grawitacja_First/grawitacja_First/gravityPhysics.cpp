@@ -1,16 +1,16 @@
 #include "gravityPhysics.h"
 
 
-Gravity::Gravity(float constG, float refreshValue, Orbit *orbitPointer) :
-	constG(constG), refreshValue(refreshValue), orbitPointer(orbitPointer){}
+Gravity::Gravity(float constG, float refreshValue) :
+	constG(constG), refreshValue(refreshValue){}
 
 void Gravity::loadSunData() {
 	cout << "Load sun mass: " << endl;
-	cin >> sun.mass;
-	//sun.mass = 100;
+	//cin >> sun.mass;
+	sun.mass = 10000;
 	cout << "Load sun radius: " << endl;
-	cin >> sun.radius;
-	//sun.radius = 2;
+	//cin >> sun.radius;
+	sun.radius = 2;
 	modelArray.push_back(sun);
 	gravityVelocity.push_back(glm::vec3(0.0f));
 }
@@ -18,22 +18,22 @@ void Gravity::loadSunData() {
 void Gravity::loadPlanetsData() {
 	int modelAmount{};
 	cout << "Enter number of planets: " << endl;
-	cin >> modelAmount;
-
+	//cin >> modelAmount;
+	modelAmount = 1;
 	for (int i = 0; i < modelAmount; i++) {
 
 		cout << i + 1 << " Enter model mass: " << endl;
-		cin >> planet.mass;
-		//planet.mass = 5;
+		//cin >> planet.mass;
+		planet.mass = 5;
 		cout << i + 1 << " Enter model aphelium: " << endl;
-		cin >> planet.aphelium;
-		//planet.aphelium = 20;
+		//cin >> planet.aphelium;
+		planet.aphelium = 20;
 		cout << i + 1 << " Enter model peryhelium: " << endl;
-		cin >> planet.peryhelium;
-		//planet.peryhelium = 10;
+		//cin >> planet.peryhelium;
+		planet.peryhelium = 10;
 		cout << i + 1 << " Enter model radius: " << endl;
-		cin >> planet.radius;
-		//planet.radius = 1;
+		//cin >> planet.radius;
+		planet.radius = 1;
 		planet.position = glm::vec3(0.0f, 0.0f, planet.peryhelium);
 
 		float vMax = findModelSpeed(planet, modelArray[0]);
@@ -48,7 +48,7 @@ void Gravity::loadPlanetsData() {
 	gravityVelCopy = gravityVelocity;
 
 	for (int i = 1; i < modelArrayCopy.size(); i++) {
-		modelArrayCopy[i].mass = modelArray[i].mass / pointsAmount;
+		modelArrayCopy[i].mass = modelArray[i].mass / (pointsAmount*speedBoost);
 		float vMax = findModelSpeed(modelArrayCopy[i], modelArrayCopy[0]);
 	}
 }
@@ -104,8 +104,8 @@ vector<glm::vec3> Gravity::findOrbitPath(int index, float deltaTime){
 					resultantForce += force;
 				}
 			}
-			gravityVelCopy[index] += resultantForce * refreshValue * speedBoost;
-			modelArrayCopy[index].position += (modelArrayCopy[index].vMax + gravityVelCopy[index]) * refreshValue * speedBoost;
+			gravityVelCopy[index] += resultantForce * refreshValue * finalSpeedBoost;
+			modelArrayCopy[index].position += (modelArrayCopy[index].vMax + gravityVelCopy[index]) * refreshValue * finalSpeedBoost;
 			pathVertices.push_back(modelArrayCopy[index].position);
 		}
 		return pathVertices;
