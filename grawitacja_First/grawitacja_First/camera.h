@@ -6,7 +6,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-
+#include <iostream>
 class Camera
 {
 private:
@@ -20,9 +20,14 @@ private:
 	const glm::vec3 gravity;
 	glm::vec3 speed = glm::vec3(0.0f, 0.0f, 0.0f);
 public:
+	struct mouseStates {
+		bool leftButton = false;
+		bool rightButton = false;
+	}mainMouse;
 	float yaw = -90.0f;
 	float pitch = 0.0f;
 	bool useGravity = false;
+	glm::mat4 currentView = glm::mat4(1.0f);
 	glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 5.0f);
 	glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 	glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
@@ -41,6 +46,8 @@ public:
 	void UseCameraWithGravity(GLFWwindow* window);
 
 	void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+
+	void translateCamera(double, double);
 
 	void setPositionAndDirection(glm::vec3 position, float pitch);
 

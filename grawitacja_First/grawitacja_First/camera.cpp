@@ -1,13 +1,15 @@
 #include "camera.h"
 
 Camera::Camera(float width, float height, const glm::vec3 gravityForce) :
-	width(width), height(height), gravity(gravityForce), lastx(width / 2), lasty(height / 2) {}
+	width(width), height(height), gravity(gravityForce), lastx(width / 2), lasty(height / 2) 
+{}
 
 Camera::Camera(float width, float height) :
 	width(width), height(height), lastx(width / 2), lasty(height / 2) {}
 
 glm::mat4 Camera::CreateViewMatrix() {
-	return glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+	currentView = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+	return currentView;
 }
 
 glm::mat4 Camera::CreateProjectionMatix(float& radians, float& width, float& height) {
@@ -71,6 +73,7 @@ void Camera::UseCameraWithGravity(GLFWwindow* window) {
 }
 
 void Camera::mouse_callback(GLFWwindow* window, double xpos, double ypos) {
+
 	if (firstMouse) {
 		lastx = xpos;
 		lasty = ypos;
@@ -99,9 +102,12 @@ void Camera::mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 	direction.y = sin(glm::radians(pitch));
 	direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
 	cameraFront = glm::normalize(direction);
+	if (mainMouse.leftButton)
+		cameraPos = -direction * glm::vec3(50.0f);
+
 }
 
-void Camera::setPositionAndDirection(glm::vec3 position, float pitch){
+void Camera::setPositionAndDirection(glm::vec3 position, float pitch) {
 	cameraPos = position;
 	this->pitch = pitch;
 	yaw = -90.0f;

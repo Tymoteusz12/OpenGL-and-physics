@@ -1,8 +1,8 @@
 ﻿  camera.cpp
-C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\camera.cpp(75,11): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
-C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\camera.cpp(76,11): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
-C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\camera.cpp(80,16): warning C4244: "inicjowanie": konwersja z "double" do "float", możliwa utrata danych
-C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\camera.cpp(81,16): warning C4244: "inicjowanie": konwersja z "double" do "float", możliwa utrata danych
-C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\camera.cpp(82,10): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
-C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\camera.cpp(83,10): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\camera.cpp(78,11): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\camera.cpp(79,11): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\camera.cpp(83,16): warning C4244: "inicjowanie": konwersja z "double" do "float", możliwa utrata danych
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\camera.cpp(84,16): warning C4244: "inicjowanie": konwersja z "double" do "float", możliwa utrata danych
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\camera.cpp(85,10): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\camera.cpp(86,10): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
   grawitacja_First.vcxproj -> C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\Debug\grawitacja_First.exe

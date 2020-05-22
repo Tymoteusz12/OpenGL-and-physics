@@ -16,6 +16,7 @@
 #include "vectors.h"
 #include "cubemap.h"
 #include "orbitClass.h"
+#include "mouseInput.h"
 #include <iostream>
 
 using namespace std;
@@ -53,6 +54,14 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 	mainCamera.mouse_callback(window, xpos, ypos);
 }
 
+void mouse_button_callback(GLFWwindow* window, int button, int action, int mods) {
+	
+	if (button == GLFW_MOUSE_BUTTON_LEFT and action == GLFW_PRESS)
+		mainCamera.mainMouse.leftButton = true;
+	if(button == GLFW_MOUSE_BUTTON_LEFT and action == GLFW_RELEASE)
+		mainCamera.mainMouse.leftButton = false;
+}
+
 void updateModelPositions(Gravity &solarSystem, Model &mainModel, CreateShader *shader, int index) {
 
 		solarSystem.findResultantForce(index);
@@ -76,6 +85,7 @@ int main(void)
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	glfwSetCursorPosCallback(window, mouse_callback);
+	glfwSetMouseButtonCallback(window, mouse_button_callback);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		cout << "Failed to initialize GLAD \n";
@@ -100,22 +110,21 @@ int main(void)
 	cubeMap skyBox(faces, skyboxVertices, sizeof(skyboxVertices));
 
 	glEnable(GL_DEPTH_TEST);
-
+	view = mainCamera.CreateViewMatrix();
 	while (!glfwWindowShouldClose(window)) {
 
 		currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 
+		projection = mainCamera.CreateProjectionMatix(viewAngle, width, height);
+		view = mainCamera.CreateViewMatrix();
+
 		processInput(window, deltaTime);
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, viewModel->myTextures[0]);
-
-		projection = mainCamera.CreateProjectionMatix(viewAngle, width, height);
-		view = mainCamera.CreateViewMatrix();
 
 		spotLightVecProperties[0] = mainCamera.cameraPos;
 		spotLightVecProperties[1] = mainCamera.cameraFront;
@@ -133,6 +142,7 @@ int main(void)
 			}
 		}
 
+		model = glm::mat4(1.0f);
 		BlockShader->useProgram();
 		viewModel->shaderPointer = BlockShader;
 		BlockShader->setMat4("projection", projection);
