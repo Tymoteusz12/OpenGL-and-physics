@@ -20,6 +20,7 @@ private:
 	const glm::vec3 gravity;
 	glm::vec3 speed = glm::vec3(0.0f, 0.0f, 0.0f);
 public:
+	glm::vec3 trans = glm::vec3(0.0f);
 	struct mouseStates {
 		bool leftButton = false;
 		bool rightButton = false;

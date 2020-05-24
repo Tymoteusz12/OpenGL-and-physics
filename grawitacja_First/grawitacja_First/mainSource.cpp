@@ -16,7 +16,6 @@
 #include "vectors.h"
 #include "cubemap.h"
 #include "orbitClass.h"
-#include "mouseInput.h"
 #include <iostream>
 
 using namespace std;
@@ -60,6 +59,10 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 		mainCamera.mainMouse.leftButton = true;
 	if(button == GLFW_MOUSE_BUTTON_LEFT and action == GLFW_RELEASE)
 		mainCamera.mainMouse.leftButton = false;
+	if (button == GLFW_MOUSE_BUTTON_RIGHT and action == GLFW_PRESS)
+		mainCamera.mainMouse.rightButton = true;
+	if (button == GLFW_MOUSE_BUTTON_RIGHT and action == GLFW_RELEASE)
+		mainCamera.mainMouse.rightButton = false;
 }
 
 void updateModelPositions(Gravity &solarSystem, Model &mainModel, CreateShader *shader, int index) {
@@ -100,6 +103,7 @@ int main(void)
 	Model mainModel("C:/Users/Tymek/Documents/BlenderObjFiles/sun2.obj");
 	
 	viewModel->loadTexture("textures/suntxt.jpg");
+	viewModel->loadTexture("C:/Users/Tymek/Desktop/OPENGL_LIB/grawitacja/grawitacja_First/grawitacja_First/textures/rotatePoint.jpg");
 
 	Orbit planetOrbit(orbitShader);
 	Gravity solarSystem(constG, refreshValue);
@@ -125,6 +129,8 @@ int main(void)
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, viewModel->myTextures[0]);
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, viewModel->myTextures[1]);
 
 		spotLightVecProperties[0] = mainCamera.cameraPos;
 		spotLightVecProperties[1] = mainCamera.cameraFront;
@@ -154,6 +160,14 @@ int main(void)
 			
 		for (int i = 0; i < solarSystem.modelArray.size(); i++) 
 			updateModelPositions(solarSystem, mainModel, BlockShader, i);
+
+		model = glm::mat4(1.0f);
+		BlockShader->useProgram();
+		model = glm::translate(model, mainCamera.trans);
+		model = glm::scale(model, glm::vec3(0.8f));
+		viewModel->setMaterialProperties(1, 32.0f);
+		BlockShader->setMat4("model", model);
+		mainModel.Draw(*BlockShader);
 
 		view = glm::mat4(glm::mat3(mainCamera.CreateViewMatrix()));
 		skyBox.drawCubemap(view, projection, skyShader);

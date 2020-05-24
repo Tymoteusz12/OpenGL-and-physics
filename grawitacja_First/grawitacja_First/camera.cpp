@@ -82,12 +82,13 @@ void Camera::mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 
 	float xoffset = xpos - lastx;
 	float yoffset = lasty - ypos;
+	float zoffset = 0;
 	lastx = xpos;
 	lasty = ypos;
 
 	xoffset *= sensitivity;
 	yoffset *= sensitivity;
-
+	
 	yaw += xoffset;
 	pitch += yoffset;
 
@@ -102,8 +103,12 @@ void Camera::mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 	direction.y = sin(glm::radians(pitch));
 	direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
 	cameraFront = glm::normalize(direction);
+
+	if (mainMouse.rightButton) {
+		trans = cameraPos + cameraFront*glm::vec3(40.0f, 40.0f, 40.0f);
+	}
 	if (mainMouse.leftButton)
-		cameraPos = -direction * glm::vec3(50.0f);
+		cameraPos = -cameraFront * glm::vec3(40.0f) + trans;
 
 }
 
