@@ -1,8 +1,20 @@
-﻿  mainSource.cpp
-C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\orbitClass.h(24,22): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+﻿  gravityPhysics.cpp
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\gravityPhysics.cpp(23,18): warning C4244: "=": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\gravityPhysics.cpp(26,25): warning C4244: "=": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\gravityPhysics.cpp(28,25): warning C4244: "=": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\gravityPhysics.cpp(31,27): warning C4244: "=": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\gravityPhysics.cpp(33,27): warning C4244: "=": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\gravityPhysics.cpp(59,20): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+  mainSource.cpp
 C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\variables.h(12,35): warning C4305: "inicjowanie": obcięcie z "double" do "float"
 C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Dependencies\headers\mesh.h(63,45): warning C4244: "argument": konwersja z "unsigned int" do "float", możliwa utrata danych
-C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\mainSource.cpp(120,29): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
-C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\mainSource.cpp(143,21): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\mainSource.cpp(161,21): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\orbitClass.h(25,21): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\orbitClass.h(33,22): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\orbitClass.h(39,34): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\orbitClass.h(52,21): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\mainSource.cpp(142,21): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\mainSource.cpp(147,21): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\mainSource.cpp(157,30): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\grawitacja_First\mainSource.cpp(200,22): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+  Generowanie kodu...
   grawitacja_First.vcxproj -> C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\grawitacja_First\Debug\grawitacja_First.exe

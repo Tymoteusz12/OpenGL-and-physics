@@ -105,7 +105,7 @@ void Camera::mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 	cameraFront = glm::normalize(direction);
 
 	if (mainMouse.rightButton) {
-		trans = cameraPos + cameraFront*glm::vec3(40.0f, 40.0f, 40.0f);
+		trans = cameraPos + cameraFront*glm::vec3(40.0f);
 	}
 	if (mainMouse.leftButton)
 		cameraPos = -cameraFront * glm::vec3(40.0f) + trans;

@@ -15,38 +15,67 @@ using namespace std;
 class Orbit {
 
 public:
-	Orbit(CreateShader *orbitShader):
-		orbitShader(orbitShader){}
+	Orbit(CreateShader *orbitShader, Gravity *pointer):
+		orbitShader(orbitShader), verticesPointer(pointer){}
 
-	void addVertices(vector<glm::vec3> vertices) {
-		pointsToDraw = vertices.size();
-		verticesToDraw = new float[vertices.size() * 3];
-			for (int i = 0; i < vertices.size(); i++) {
-			verticesToDraw[i * 3] = vertices[i].x;
-			verticesToDraw[i * 3 + 1] = vertices[i].y;
-			verticesToDraw[i * 3 + 2] = vertices[i].z;
-			}		
+	void addVertices() {
+
+		verticesToDraw = new float* [verticesPointer->modelArray.size() - 1];
+		pointsToDraw = new int[verticesPointer->modelArray.size() - 1];
+		for (int j = 0; j < verticesPointer->modelArray.size() - 1; j++) {
+			unsigned int arraySizePlus = verticesPointer->dynamicArray[j].assignArrayPlus.size();
+			unsigned int arraySizeMinus = verticesPointer->dynamicArray[j].assignArrayMinus.size();
+			unsigned int sumSize = arraySizePlus + arraySizeMinus;
+			pointsToDraw[j] = int(sumSize);
+
+			verticesToDraw[j] = new float[pointsToDraw[j] * 3 + 3];
+
+			for (int i = 0; i < arraySizePlus; i++) {
+				verticesToDraw[j][i * 3] = verticesPointer->dynamicArray[j].assignArrayPlus[i].x;
+				verticesToDraw[j][i * 3 + 1] = verticesPointer->dynamicArray[j].assignArrayPlus[i].y;
+				verticesToDraw[j][i * 3 + 2] = verticesPointer->dynamicArray[j].assignArrayPlus[i].z;
+			}
+			int indexID = 0;
+			for (int i = arraySizePlus; i < sumSize; i++) {
+				verticesToDraw[j][i * 3] = verticesPointer->dynamicArray[j].assignArrayMinus[indexID].x;
+				verticesToDraw[j][i * 3 + 1] = verticesPointer->dynamicArray[j].assignArrayMinus[indexID].y;
+				verticesToDraw[j][i * 3 + 2] = verticesPointer->dynamicArray[j].assignArrayMinus[indexID++].z;
+			}
+		}
 	}
+
+	void copyVertices(int index) {
+		copyArray = verticesToDraw[index];
+	}
+
 	void drawOrbit() {
-		createBuffers();
-		glBindVertexArray(orbitVAO);
-		glPointSize(5);
-		glDrawArrays(GL_POINTS, 0, pointsToDraw);
-		freeMemory();
+		for (int i = 0; i < verticesPointer->dynamicArray.size(); i++) {
+			copyVertices(i);
+			if (pointsToDraw != 0) {
+				createBuffers(i);
+				glBindVertexArray(orbitVAO);
+				glLineWidth(1);
+				glDrawArrays(GL_LINE_STRIP, 0, pointsToDraw[i]/2);
+				glDrawArrays(GL_LINE_STRIP, pointsToDraw[i] / 2, pointsToDraw[i] / 2);
+				freeMemory();
+			}
+		}
 	}
+	~Orbit(){}
 private:
 	unsigned int orbitVBO, orbitVAO;
-	int pointsToDraw;
+	int *pointsToDraw;
 	CreateShader* orbitShader;
-	float* verticesToDraw;
-
-	void createBuffers() {
+	Gravity* verticesPointer;
+	float **verticesToDraw;
+	float* copyArray;
+	void createBuffers(int i) {
 		glGenVertexArrays(1, &orbitVAO);
 		glGenBuffers(1, &orbitVBO);
 
 		glBindVertexArray(orbitVAO);
 		glBindBuffer(GL_ARRAY_BUFFER, orbitVBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(verticesToDraw) * pointsToDraw * 3, verticesToDraw, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(copyArray) * pointsToDraw[i] * 3, copyArray, GL_STATIC_DRAW);
 
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 		glEnableVertexAttribArray(0);
@@ -55,10 +84,7 @@ private:
 	void freeMemory() {
 		glDeleteVertexArrays(1, &orbitVAO);
 		glDeleteBuffers(1, &orbitVBO);
-		delete[] verticesToDraw;
 	}
 };
-
-
 
 #endif

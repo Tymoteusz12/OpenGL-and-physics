@@ -9,8 +9,8 @@ namespace variables {
 
 	float moveDeltaTime = 0.0f, moveCurrentFrame = 0.0f, moveLastFrame = 0.0f, moveFrameAfter;
 
-	const float refreshValue = 1.0E-3;
+	const float refreshValue = 1.0E-5;
 
-	const float constG(0.1f);
+	const float constG(1.0f);
 }
 #endif

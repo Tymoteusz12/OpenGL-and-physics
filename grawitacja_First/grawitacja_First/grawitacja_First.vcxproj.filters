@@ -110,6 +110,9 @@
     <ClInclude Include="orbitClass.h">
       <Filter>PotrzebneKlasy</Filter>
     </ClInclude>
+    <ClInclude Include="axisLines.h">
+      <Filter>PotrzebneKlasy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="FragmentShaderCode.glsl">
@@ -140,6 +143,12 @@
       <Filter>shaders\ObjectShaders</Filter>
     </None>
     <None Include="orbitFragment.glsl">
+      <Filter>shaders\ObjectShaders</Filter>
+    </None>
+    <None Include="testV.glsl">
+      <Filter>shaders\ObjectShaders</Filter>
+    </None>
+    <None Include="testF.glsl">
       <Filter>shaders\ObjectShaders</Filter>
     </None>
   </ItemGroup>

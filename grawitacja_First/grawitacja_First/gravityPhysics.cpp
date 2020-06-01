@@ -5,51 +5,42 @@ Gravity::Gravity(float constG, float refreshValue) :
 	constG(constG), refreshValue(refreshValue){}
 
 void Gravity::loadSunData() {
-	cout << "Load sun mass: " << endl;
-	//cin >> sun.mass;
-	sun.mass = 10000;
-	cout << "Load sun radius: " << endl;
-	//cin >> sun.radius;
-	sun.radius = 2;
+
+	cout << "Loading sun data..." << endl;
+	sun.mass = 1000000;
+
+	sun.radius = 1.5;
 	modelArray.push_back(sun);
 	gravityVelocity.push_back(glm::vec3(0.0f));
 }
 
 void Gravity::loadPlanetsData() {
 	int modelAmount{};
-	cout << "Enter number of planets: " << endl;
-	//cin >> modelAmount;
-	modelAmount = 1;
-	for (int i = 0; i < modelAmount; i++) {
+	modelAmount = 9;
 
-		cout << i + 1 << " Enter model mass: " << endl;
-		//cin >> planet.mass;
-		planet.mass = 5;
-		cout << i + 1 << " Enter model aphelium: " << endl;
-		//cin >> planet.aphelium;
-		planet.aphelium = 20;
-		cout << i + 1 << " Enter model peryhelium: " << endl;
-		//cin >> planet.peryhelium;
-		planet.peryhelium = 10;
-		cout << i + 1 << " Enter model radius: " << endl;
-		//cin >> planet.radius;
+	cout << "Loading planet data... " << endl;
+	for (int i = 0; i < modelAmount; i++) {
+		planet.mass = 5*(1+i);
+
+		if(i >=4)
+			planet.aphelium = 20 * (1 + 5*i);
+		else 
+			planet.aphelium = 20 * (1 + 3 * i);
+
+		if (i >= 4)
+			planet.peryhelium = 10 * (1 + 5 * i);
+		else
+			planet.peryhelium = 10 * (1 + 3 * i);
+
 		planet.radius = 1;
-		planet.position = glm::vec3(0.0f, 0.0f, planet.peryhelium);
+		planet.position = glm::vec3(planet.peryhelium, 0.0f, 0.0f);
 
 		float vMax = findModelSpeed(planet, modelArray[0]);
 
-		planet.vMax = glm::vec3(vMax, 0.0f, 0.0f);
+		planet.vMax = glm::vec3(0.0f, 0.0f, -vMax);
 
 		modelArray.push_back(planet);
 		gravityVelocity.push_back(glm::vec3(0.0f));
-	}
-
-	modelArrayCopy = modelArray;
-	gravityVelCopy = gravityVelocity;
-
-	for (int i = 1; i < modelArrayCopy.size(); i++) {
-		modelArrayCopy[i].mass = modelArray[i].mass / (pointsAmount*speedBoost);
-		float vMax = findModelSpeed(modelArrayCopy[i], modelArrayCopy[0]);
 	}
 }
 
@@ -81,34 +72,38 @@ void Gravity::findResultantForce(int index) {
 	updatePosition(index);
 }
 
-vector<glm::vec3> Gravity::findOrbitPath(int index, float deltaTime){
+void Gravity::findEllipse(int index, bool positive) {
 
-	vector<glm::vec3> pathVertices;
+	double currentX = double(modelArray[index].peryhelium);
+	double resultantZ = 0;
+	double majorA = 0.5 * double(modelArray[index].aphelium + modelArray[index].peryhelium);
+	double minorB = 0.5 * double(sqrt(pow(modelArray[index].aphelium, 2.0) + 2.0 * modelArray[index].aphelium * modelArray[index].peryhelium));
+	double translationC = 0;
+	int mirrorEllipse = 1;
+	if(sqrt(pow(majorA, 2.0) - pow(minorB, 2.0) >= 0))
+		translationC = sqrt(pow(majorA, 2.0) - pow(minorB, 2.0));
 
-	refreshTime += deltaTime;
-	if (refreshTime >= 0.001) {
-		unsigned int loopVar = 0;
-		refreshTime = 0;
-		while (loopVar++ <= pointsAmount) {
-			resultantForce = glm::vec3(0.0f);
-			for (int i = 0; i < modelArray.size(); i++) {
-				if (i != index) {
+	glm::vec3 centerPoint = modelArray[0].position;
+	double ellipseRelation = -pow((currentX - centerPoint.x + translationC) / majorA, 2.0) + 1;
 
-					float vectorLength = glm::length(modelArrayCopy[i].position - modelArrayCopy[index].position);
-					glm::vec3 direction = glm::normalize(modelArrayCopy[i].position - modelArrayCopy[index].position);
-					glm::vec3 force = glm::vec3(0.0f);
+	if (!positive) 
+		mirrorEllipse = -1;
 
-					if (vectorLength != 0.0f)
-						force = ((constG * modelArrayCopy[i].mass) / (vectorLength * vectorLength)) * direction;
+	while (ellipseRelation >= 0) {
+		ellipseRelation = -pow((currentX - centerPoint.x + translationC) / majorA, 2.0) + 1;
+		resultantZ = mirrorEllipse*sqrt(ellipseRelation) * minorB + centerPoint.z;
 
-					resultantForce += force;
-				}
-			}
-			gravityVelCopy[index] += resultantForce * refreshValue * finalSpeedBoost;
-			modelArrayCopy[index].position += (modelArrayCopy[index].vMax + gravityVelCopy[index]) * refreshValue * finalSpeedBoost;
-			pathVertices.push_back(modelArrayCopy[index].position);
-		}
-		return pathVertices;
+		glm::vec3 orbitVertices = glm::vec3(currentX, 0.0f, resultantZ);
+
+		if (currentX <= -modelArray[index].aphelium or currentX >= modelArray[index].peryhelium)
+			orbitVertices = glm::vec3(currentX, 0.0f, 0.0f);
+
+		if (!positive)
+			dynamicArray[index - 1].assignArrayMinus.push_back(orbitVertices);
+		else
+			dynamicArray[index-1].assignArrayPlus.push_back(orbitVertices);
+			
+		currentX -= 0.3;
 	}
 }
 

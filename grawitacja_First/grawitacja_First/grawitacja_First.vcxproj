@@ -158,6 +158,7 @@
     <ClInclude Include="..\..\Dependencies\headers\mesh.h" />
     <ClInclude Include="..\..\Dependencies\headers\model.h" />
     <ClInclude Include="arrays.h" />
+    <ClInclude Include="axisLines.h" />
     <ClInclude Include="booleans.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="complexTypes.h" />
@@ -181,6 +182,8 @@
     <None Include="orbitVertex.glsl" />
     <None Include="rgbaFragment.glsl" />
     <None Include="rgbaVertex.glsl" />
+    <None Include="testF.glsl" />
+    <None Include="testV.glsl" />
     <None Include="VertexShaderCode.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

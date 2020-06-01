@@ -16,7 +16,10 @@
 #include "vectors.h"
 #include "cubemap.h"
 #include "orbitClass.h"
+#include "axisLines.h"
 #include <iostream>
+
+#define PI 3.14159265
 
 using namespace std;
 using namespace variables;
@@ -65,16 +68,20 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 		mainCamera.mainMouse.rightButton = false;
 }
 
-void updateModelPositions(Gravity &solarSystem, Model &mainModel, CreateShader *shader, int index) {
-
+void updateModelPositions(Gravity &solarSystem, vector<Model> &models, CreateShader *shader, int index) {
+		
 		solarSystem.findResultantForce(index);
 		float radiusToScale = solarSystem.modelArray[index].radius;
 		glm::vec3 positionToDraw = solarSystem.modelArray[index].position;
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, positionToDraw);
+		model = glm::rotate(model, glm::radians(float(glfwGetTime()) * 3), glm::vec3(0.05f * (index+1) , 0.6f * (index+1), 0.0f));
 		model = glm::scale(model, glm::vec3(radiusToScale));
 		shader->setMat4("model", model);
-		mainModel.Draw(*shader);
+		if(index == 0)
+			models[0].Draw(*shader);
+		else
+			models[1].Draw(*shader);
 }
 
 int main(void)
@@ -98,84 +105,122 @@ int main(void)
 	CreateShader* BlockShader = new CreateShader("VertexShaderCode.glsl", "FragmentShaderCode.glsl");
 	CreateShader* skyShader = new CreateShader("cubeVertex.glsl", "cubeFragment.glsl");
 	CreateShader* orbitShader = new CreateShader("orbitVertex.glsl", "orbitFragment.glsl");
+	CreateShader* test = new CreateShader("testV.glsl", "testF.glsl");
 
 	model3D* viewModel = new model3D(&mainCamera, BlockShader, glm::vec3(0.0f), glm::vec3(0.0f));
-	Model mainModel("C:/Users/Tymek/Documents/BlenderObjFiles/sun2.obj");
-	
-	viewModel->loadTexture("textures/suntxt.jpg");
-	viewModel->loadTexture("C:/Users/Tymek/Desktop/OPENGL_LIB/grawitacja/grawitacja_First/grawitacja_First/textures/rotatePoint.jpg");
+	{
+		Model sunModel("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/sun.obj");
+		Model planetModel("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/planet.obj");
+		viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/sun_texture.jpg");
+		viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/mercury.png");
+		viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/venus.jpg");
+		viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/earth.jpg");
+		viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/mars.jpg");
+		viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/jupiter.jpg");
+		viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/saturn.jpg");
+		viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/uranus.jpg");
+		viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/neptune.jpg");
+		viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/ceres.jpg");
+		viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/nightsky.jpg");
 
-	Orbit planetOrbit(orbitShader);
-	Gravity solarSystem(constG, refreshValue);
-	
-	solarSystem.loadSunData();
-	solarSystem.loadPlanetsData();
+		vector<Model> models;
+		models.push_back(sunModel);
+		models.push_back(planetModel);
 
-	cubeMap skyBox(faces, skyboxVertices, sizeof(skyboxVertices));
+		axisLines axes(orbitShader);
+		Gravity solarSystem(constG, refreshValue);
+		Orbit planetOrbit(orbitShader, &solarSystem);
 
-	glEnable(GL_DEPTH_TEST);
-	view = mainCamera.CreateViewMatrix();
-	while (!glfwWindowShouldClose(window)) {
+		solarSystem.loadSunData();
+		solarSystem.loadPlanetsData();
 
-		currentFrame = glfwGetTime();
-		deltaTime = currentFrame - lastFrame;
-		lastFrame = currentFrame;
+		cubeMap skyBox(faces, skyboxVertices, sizeof(skyboxVertices));
 
-		projection = mainCamera.CreateProjectionMatix(viewAngle, width, height);
-		view = mainCamera.CreateViewMatrix();
+		glEnable(GL_DEPTH_TEST);
 
-		processInput(window, deltaTime);
-		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, viewModel->myTextures[0]);
-		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, viewModel->myTextures[1]);
 
-		spotLightVecProperties[0] = mainCamera.cameraPos;
-		spotLightVecProperties[1] = mainCamera.cameraFront;
-
-		model = glm::mat4(1.0f);
-		orbitShader->useProgram();
-		orbitShader->setMat4("projection", projection);
-		orbitShader->setMat4("view", view);
-		orbitShader->setMat4("model", model);
-		for (int i = 0; i < solarSystem.modelArray.size(); i++) {
-			vector<glm::vec3> pathVertices = solarSystem.findOrbitPath(i, deltaTime);
-			if (pathVertices.size() != 0) {
-				planetOrbit.addVertices(pathVertices);
-				planetOrbit.drawOrbit();
-			}
+		for (int i = 1; i < solarSystem.modelArray.size(); i++) {
+			solarSystem.dynamicArray.push_back(solarSystem.myVertices);
+			solarSystem.findEllipse(i, true);
 		}
 
-		model = glm::mat4(1.0f);
-		BlockShader->useProgram();
-		viewModel->shaderPointer = BlockShader;
-		BlockShader->setMat4("projection", projection);
-		BlockShader->setMat4("view", view);
-		BlockShader->setMat4("model", model);
-		BlockShader->setVec3("viewPos", mainCamera.cameraPos);
-		viewModel->setMaterialProperties(0, 32.0f);
-		viewModel->setSpotLightProperties(spotLightVecProperties, spotLightFloatProperties);
-			
-		for (int i = 0; i < solarSystem.modelArray.size(); i++) 
-			updateModelPositions(solarSystem, mainModel, BlockShader, i);
+		for (int i = 1; i < solarSystem.modelArray.size(); i++) {
+			solarSystem.findEllipse(i, false);
+		}
 
-		model = glm::mat4(1.0f);
-		BlockShader->useProgram();
-		model = glm::translate(model, mainCamera.trans);
-		model = glm::scale(model, glm::vec3(0.8f));
-		viewModel->setMaterialProperties(1, 32.0f);
-		BlockShader->setMat4("model", model);
-		mainModel.Draw(*BlockShader);
+		planetOrbit.addVertices();
 
-		view = glm::mat4(glm::mat3(mainCamera.CreateViewMatrix()));
-		skyBox.drawCubemap(view, projection, skyShader);
-			
-		glfwSwapBuffers(window);
-		glfwPollEvents();
+		cout << "Found orbit vertices" << endl;
+		float refreshTime = 0;
+		while (!glfwWindowShouldClose(window)) {
+
+			currentFrame = glfwGetTime();
+			deltaTime = currentFrame - lastFrame;
+			lastFrame = currentFrame;
+
+			projection = mainCamera.CreateProjectionMatix(viewAngle, width, height);
+			view = mainCamera.CreateViewMatrix();
+
+			processInput(window, deltaTime);
+			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+			for (int i = 0; i <= 10; i++) {
+				glActiveTexture(GL_TEXTURE0 + i);
+				glBindTexture(GL_TEXTURE_2D, viewModel->myTextures[i]);
+			}
+
+			spotLightVecProperties[0] = mainCamera.cameraPos;
+			spotLightVecProperties[1] = mainCamera.cameraFront;
+
+			model = glm::mat4(1.0f);
+			orbitShader->useProgram();
+			orbitShader->setVec3("color", 0.0f, 1.0f, 0.0f);
+			orbitShader->setMat4("projection", projection);
+			orbitShader->setMat4("view", view);
+			orbitShader->setMat4("model", model);
+
+			refreshTime += deltaTime;
+			if (refreshTime >= 0.001f) {
+				refreshTime = 0.0f;
+				planetOrbit.drawOrbit();
+				axes.drawAxes();
+			}
+
+			model = glm::mat4(1.0f);
+			BlockShader->useProgram();
+			viewModel->shaderPointer = BlockShader;
+			BlockShader->setMat4("projection", projection);
+			BlockShader->setMat4("view", view);
+			BlockShader->setMat4("model", model);
+			BlockShader->setVec3("viewPos", mainCamera.cameraPos);
+			viewModel->setMaterialProperties(0, 32.0f);
+			viewModel->setSpotLightProperties(spotLightVecProperties, spotLightFloatProperties);
+
+			for (int i = 0; i < solarSystem.modelArray.size(); i++) {
+				viewModel->setMaterialProperties(i, 32.0f);
+				viewModel->setSpotLightProperties(spotLightVecProperties, spotLightFloatProperties);
+				updateModelPositions(solarSystem, models, BlockShader, i);
+			}
+
+			test->useProgram();
+			test->setMat4("projection", projection);
+			test->setMat4("view", view);
+			model = glm::mat4(1.0f);
+			model = glm::translate(model, mainCamera.trans);
+			model = glm::scale(model, glm::vec3(0.8f));
+			test->setInt("texture_diffuse1", 10);
+			test->setMat4("model", model);
+			planetModel.Draw(*test);
+
+			view = glm::mat4(glm::mat3(mainCamera.CreateViewMatrix()));
+			skyBox.drawCubemap(view, projection, skyShader);
+
+			glfwSwapBuffers(window);
+			glfwPollEvents();
+		}
 	}
-
 	glfwTerminate();
-	return 0;
+	delete BlockShader, skyShader, orbitShader, test, viewModel;
+ 	return 0;
 }

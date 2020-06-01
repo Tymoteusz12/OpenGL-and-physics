@@ -8,7 +8,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <vector>
 #include <iostream>
-#include "orbitClass.h"
+
 using namespace std;
 
 class Gravity {
@@ -24,9 +24,13 @@ public:
 
 	vector<modelData> modelArray;
 	vector<glm::vec3> gravityVelocity;
-	vector<glm::vec3> gravityVelCopy;
-	vector<modelData> modelArrayCopy;
+	unsigned int* sizes = new unsigned int [modelArray.size()];
+	struct ellipseVertices {
+		vector<glm::vec3> assignArrayPlus;
+		vector<glm::vec3> assignArrayMinus;
+	}myVertices;
 
+	vector<ellipseVertices> dynamicArray;
 	Gravity(float constG, float refreshValue);
 
 	void loadSunData();
@@ -34,12 +38,9 @@ public:
 	void findResultantForce(int index);
 	void updatePosition(int index);
 
-	vector<glm::vec3> findOrbitPath(int index, float deltaTime);
+	void findEllipse(int, bool);
+	~Gravity(){}
 private:
-	float pointsAmount = 50.0f;
-	float equalSpeedBoost = 1 / pointsAmount;
-	float speedBoost = 10.0f;
-	float finalSpeedBoost = speedBoost * equalSpeedBoost;
 	float refreshTime = 0;
 	const float constG;
 	const float refreshValue;
