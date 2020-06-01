@@ -180,8 +180,6 @@
     <None Include="LightVertexShader.glsl" />
     <None Include="orbitFragment.glsl" />
     <None Include="orbitVertex.glsl" />
-    <None Include="rgbaFragment.glsl" />
-    <None Include="rgbaVertex.glsl" />
     <None Include="testF.glsl" />
     <None Include="testV.glsl" />
     <None Include="VertexShaderCode.glsl" />

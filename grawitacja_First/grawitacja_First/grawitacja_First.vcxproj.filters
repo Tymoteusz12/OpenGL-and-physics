@@ -28,9 +28,6 @@
     <Filter Include="shaders\ObjectShaders">
       <UniqueIdentifier>{b5fb6af8-420e-4137-af61-59bd58c9caba}</UniqueIdentifier>
     </Filter>
-    <Filter Include="shaders\ObjectShaders\rgba">
-      <UniqueIdentifier>{110d8e43-da6c-4240-89fd-11558e81168f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Pliki źródłowe\includes">
       <UniqueIdentifier>{c055fddb-932b-4a54-b98a-4c7269567976}</UniqueIdentifier>
     </Filter>
@@ -126,12 +123,6 @@
     </None>
     <None Include="LightVertexShader.glsl">
       <Filter>shaders\LightShaders</Filter>
-    </None>
-    <None Include="rgbaFragment.glsl">
-      <Filter>shaders\ObjectShaders\rgba</Filter>
-    </None>
-    <None Include="rgbaVertex.glsl">
-      <Filter>shaders\ObjectShaders\rgba</Filter>
     </None>
     <None Include="cubeVertex.glsl">
       <Filter>shaders\Cube map</Filter>
