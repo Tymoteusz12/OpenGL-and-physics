@@ -14,24 +14,23 @@ using namespace std;
 class Gravity {
 public:
 	struct modelData {
-		float mass = 0.0f;
-		float radius = 0.0f;
-		float peryhelium = 0.0f;
-		float aphelium = 0.0f;
-		glm::vec3 position = glm::vec3(0.0f);
-		glm::vec3 vMax = glm::vec3(0.0f);
+		double mass = 0.0f;
+		double radius = 0.0f;
+		double peryhelion = 0.0f;
+		double aphelion = 0.0f;
+		glm::dvec3 position = glm::vec3(0.0f);
+		glm::dvec3 vMax = glm::vec3(0.0f);
 	}sun, planet;
 
 	vector<modelData> modelArray;
-	vector<glm::vec3> gravityVelocity;
-	unsigned int* sizes = new unsigned int [modelArray.size()];
+	vector<glm::dvec3> gravityVelocity;
 	struct ellipseVertices {
-		vector<glm::vec3> assignArrayPlus;
-		vector<glm::vec3> assignArrayMinus;
+		vector<glm::dvec3> assignArrayPlus;
+		vector<glm::dvec3> assignArrayMinus;
 	}myVertices;
 
 	vector<ellipseVertices> dynamicArray;
-	Gravity(float constG, float refreshValue);
+	Gravity(double constG, double refreshValue);
 
 	void loadSunData();
 	void loadPlanetsData();
@@ -42,11 +41,12 @@ public:
 	~Gravity(){}
 private:
 	float refreshTime = 0;
-	const float constG;
-	const float refreshValue;
-	glm::vec3 resultantForce;
+	double scale = 1.0E-8;
+	const double constG;
+	const double refreshValue;
+	glm::dvec3 resultantForce;
 	
-	float findModelSpeed(modelData planet, modelData sun);
+	double findModelSpeed(modelData planet, modelData sun);
 
 };
 

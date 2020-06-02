@@ -29,18 +29,20 @@ using namespace arrays;
 using namespace vectors;
 
 Camera mainCamera(width, height);
-
+Gravity;
 lastPosition lastPos;
 void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
 	glViewport(0, 0, width, height);
 }
 
-void processInput(GLFWwindow* window, float deltaTime) {
+void processInput(GLFWwindow* window, float deltaTime, Gravity solarSystem) {
+	static int id = 0;
+	static bool press = false;
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
 	if (glfwGetKey(window, GLFW_KEY_F1) == GLFW_PRESS and !viewMode) {
 		lastPos.cameraPosition = mainCamera.cameraPos;
-		mainCamera.setPositionAndDirection(glm::vec3(0.0f,50.0f, 0.0f), -89.0f);
+		mainCamera.setPositionAndDirection(glm::vec3(0.0f, 5*solarSystem.modelArray[3].radius, 0.0f), -89.0f);
 		viewMode = true;
 	}
 	if (glfwGetKey(window, GLFW_KEY_F2) == GLFW_PRESS and viewMode) {
@@ -48,7 +50,13 @@ void processInput(GLFWwindow* window, float deltaTime) {
 		mainCamera.setPositionAndDirection(mainCamera.cameraPos, 0.0f);
 		viewMode = false;
 	}
-	
+	if (glfwGetKey(window, GLFW_KEY_F3) == GLFW_PRESS and !press) {
+		mainCamera.cameraPos = solarSystem.modelArray[id++ % 9].position + glm::dvec3(3*solarSystem.modelArray[3].radius);
+		press = true;
+	}
+	if (glfwGetKey(window, GLFW_KEY_F3) == GLFW_RELEASE and press)
+		press = false;
+
 	mainCamera.MoveCameraFunction(window, deltaTime);
 }
 
@@ -75,7 +83,7 @@ void updateModelPositions(Gravity &solarSystem, vector<Model> &models, CreateSha
 		glm::vec3 positionToDraw = solarSystem.modelArray[index].position;
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, positionToDraw);
-		model = glm::rotate(model, glm::radians(float(glfwGetTime()) * 3), glm::vec3(0.05f * (index+1) , 0.6f * (index+1), 0.0f));
+		model = glm::rotate(model, glm::radians(float(glfwGetTime()) * 6), glm::vec3(0.05f * (index+1) , 0.6f * (index+1), 0.0f));
 		model = glm::scale(model, glm::vec3(radiusToScale));
 		shader->setMat4("model", model);
 		if(index == 0)
@@ -111,6 +119,8 @@ int main(void)
 	{
 		Model sunModel("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/sun.obj");
 		Model planetModel("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/planet.obj");
+
+		cout << "Loading textures... " << endl;
 		viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/sun_texture.jpg");
 		viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/mercury.png");
 		viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/venus.jpg");
@@ -161,7 +171,7 @@ int main(void)
 			projection = mainCamera.CreateProjectionMatix(viewAngle, width, height);
 			view = mainCamera.CreateViewMatrix();
 
-			processInput(window, deltaTime);
+			processInput(window, deltaTime, solarSystem);
 			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -208,8 +218,8 @@ int main(void)
 			test->setMat4("view", view);
 			model = glm::mat4(1.0f);
 			model = glm::translate(model, mainCamera.trans);
-			model = glm::scale(model, glm::vec3(0.8f));
-			test->setInt("texture_diffuse1", 10);
+			model = glm::scale(model, glm::vec3(solarSystem.modelArray[3].radius));
+			test->setInt("texture_diffuse1", 3);
 			test->setMat4("model", model);
 			planetModel.Draw(*test);
 

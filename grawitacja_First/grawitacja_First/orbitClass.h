@@ -21,22 +21,21 @@ public:
 	void addVertices() {
 
 		verticesToDraw = new float* [verticesPointer->modelArray.size() - 1];
-		pointsToDraw = new int[verticesPointer->modelArray.size() - 1];
+		pointsToDraw = new unsigned int[verticesPointer->modelArray.size() - 1];
 		for (int j = 0; j < verticesPointer->modelArray.size() - 1; j++) {
 			unsigned int arraySizePlus = verticesPointer->dynamicArray[j].assignArrayPlus.size();
 			unsigned int arraySizeMinus = verticesPointer->dynamicArray[j].assignArrayMinus.size();
 			unsigned int sumSize = arraySizePlus + arraySizeMinus;
-			pointsToDraw[j] = int(sumSize);
-
+			pointsToDraw[j] = sumSize;
 			verticesToDraw[j] = new float[pointsToDraw[j] * 3 + 3];
 
-			for (int i = 0; i < arraySizePlus; i++) {
+			for (unsigned int i = 0; i < arraySizePlus; i++) {
 				verticesToDraw[j][i * 3] = verticesPointer->dynamicArray[j].assignArrayPlus[i].x;
 				verticesToDraw[j][i * 3 + 1] = verticesPointer->dynamicArray[j].assignArrayPlus[i].y;
 				verticesToDraw[j][i * 3 + 2] = verticesPointer->dynamicArray[j].assignArrayPlus[i].z;
 			}
 			int indexID = 0;
-			for (int i = arraySizePlus; i < sumSize; i++) {
+			for (unsigned int i = arraySizePlus; i < sumSize; i++) {
 				verticesToDraw[j][i * 3] = verticesPointer->dynamicArray[j].assignArrayMinus[indexID].x;
 				verticesToDraw[j][i * 3 + 1] = verticesPointer->dynamicArray[j].assignArrayMinus[indexID].y;
 				verticesToDraw[j][i * 3 + 2] = verticesPointer->dynamicArray[j].assignArrayMinus[indexID++].z;
@@ -56,7 +55,7 @@ public:
 				glBindVertexArray(orbitVAO);
 				glLineWidth(1);
 				glDrawArrays(GL_LINE_STRIP, 0, pointsToDraw[i]/2);
-				glDrawArrays(GL_LINE_STRIP, pointsToDraw[i] / 2, pointsToDraw[i] / 2);
+				glDrawArrays(GL_LINE_STRIP, pointsToDraw[i] / 2 , pointsToDraw[i] / 2 );
 				freeMemory();
 			}
 		}
@@ -64,7 +63,7 @@ public:
 	~Orbit(){}
 private:
 	unsigned int orbitVBO, orbitVAO;
-	int *pointsToDraw;
+	unsigned int *pointsToDraw;
 	CreateShader* orbitShader;
 	Gravity* verticesPointer;
 	float **verticesToDraw;

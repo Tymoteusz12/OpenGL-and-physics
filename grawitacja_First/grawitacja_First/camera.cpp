@@ -13,7 +13,7 @@ glm::mat4 Camera::CreateViewMatrix() {
 }
 
 glm::mat4 Camera::CreateProjectionMatix(float& radians, float& width, float& height) {
-	return glm::perspective(glm::radians(radians), width / height, 0.1f, 2000.0f);
+	return glm::perspective(glm::radians(radians), width / height, 0.1f, (float)6.0E10);
 }
 
 void Camera::MoveCameraFunction(GLFWwindow* window, float deltaTime) {
@@ -24,9 +24,9 @@ void Camera::MoveCameraFunction(GLFWwindow* window, float deltaTime) {
 	}
 	else {
 		if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
-			cameraSpeed = 20.0f;
+			cameraSpeed = 300.0;
 		if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) != GLFW_PRESS)
-			cameraSpeed = 5.0f;
+			cameraSpeed = 2.997;
 		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 			cameraPos += cameraSpeed * deltaTime * cameraFront;
 		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
@@ -105,10 +105,10 @@ void Camera::mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 	cameraFront = glm::normalize(direction);
 
 	if (mainMouse.rightButton) {
-		trans = cameraPos + cameraFront*glm::vec3(40.0f);
+		trans = cameraPos + cameraFront* glm::vec3(0.31855);
 	}
 	if (mainMouse.leftButton)
-		cameraPos = -cameraFront * glm::vec3(40.0f) + trans;
+		cameraPos = -cameraFront * glm::vec3(0.31855) + trans;
 
 }
 
