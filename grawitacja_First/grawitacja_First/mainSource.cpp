@@ -17,6 +17,7 @@
 #include "cubemap.h"
 #include "orbitClass.h"
 #include "axisLines.h"
+#include "asteroid.h"
 #include <iostream>
 
 #define PI 3.14159265
@@ -35,9 +36,10 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
 	glViewport(0, 0, width, height);
 }
 
-void processInput(GLFWwindow* window, float deltaTime, Gravity solarSystem) {
+void processInput(GLFWwindow* window, float deltaTime, Gravity solarSystem, glm::vec3 asteroid) {
 	static int id = 0;
 	static bool press = false;
+	static bool pressForAsteroidBelt = false;
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
 	if (glfwGetKey(window, GLFW_KEY_F1) == GLFW_PRESS and !viewMode) {
@@ -51,11 +53,14 @@ void processInput(GLFWwindow* window, float deltaTime, Gravity solarSystem) {
 		viewMode = false;
 	}
 	if (glfwGetKey(window, GLFW_KEY_F3) == GLFW_PRESS and !press) {
-		mainCamera.cameraPos = solarSystem.modelArray[id++ % 9].position + glm::dvec3(3*solarSystem.modelArray[3].radius);
+		mainCamera.cameraPos = solarSystem.modelArray[id++ % 10].position + glm::dvec3(3*solarSystem.modelArray[3].radius);
 		press = true;
 	}
 	if (glfwGetKey(window, GLFW_KEY_F3) == GLFW_RELEASE and press)
 		press = false;
+
+	if (glfwGetKey(window, GLFW_KEY_F4) == GLFW_PRESS)
+		mainCamera.cameraPos = asteroid;
 
 	mainCamera.MoveCameraFunction(window, deltaTime);
 }
@@ -74,6 +79,31 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 		mainCamera.mainMouse.rightButton = true;
 	if (button == GLFW_MOUSE_BUTTON_RIGHT and action == GLFW_RELEASE)
 		mainCamera.mainMouse.rightButton = false;
+}
+
+void loadViewModelTextures(model3D* viewModel) {
+	viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/sun_texture.jpg");
+	viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/mercury.png");
+	viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/venus.jpg");
+	viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/earth.jpg");
+	viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/mars.jpg");
+	viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/jupiter.jpg");
+	viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/saturn.jpg");
+	viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/uranus.jpg");
+	viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/neptune.jpg");
+	viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/ceres.jpg");
+	viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/nightsky.jpg");
+}
+
+void findEllipse(Gravity &solarSystem) {
+	for (int i = 1; i < solarSystem.modelArray.size(); i++) {
+		solarSystem.dynamicArray.push_back(solarSystem.myVertices);
+		solarSystem.findEllipse(i, true);
+	}
+
+	for (int i = 1; i < solarSystem.modelArray.size(); i++) {
+		solarSystem.findEllipse(i, false);
+	}
 }
 
 void updateModelPositions(Gravity &solarSystem, vector<Model> &models, CreateShader *shader, int index) {
@@ -114,24 +144,17 @@ int main(void)
 	CreateShader* skyShader = new CreateShader("cubeVertex.glsl", "cubeFragment.glsl");
 	CreateShader* orbitShader = new CreateShader("orbitVertex.glsl", "orbitFragment.glsl");
 	CreateShader* test = new CreateShader("testV.glsl", "testF.glsl");
+	CreateShader* asteroidShader = new CreateShader("asteroidV.glsl", "asteroidF.glsl");
 
 	model3D* viewModel = new model3D(&mainCamera, BlockShader, glm::vec3(0.0f), glm::vec3(0.0f));
 	{
+		cout << "Loading models... " << endl;
 		Model sunModel("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/sun.obj");
 		Model planetModel("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/planet.obj");
+		Model rock("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/rock.obj");
 
 		cout << "Loading textures... " << endl;
-		viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/sun_texture.jpg");
-		viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/mercury.png");
-		viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/venus.jpg");
-		viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/earth.jpg");
-		viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/mars.jpg");
-		viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/jupiter.jpg");
-		viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/saturn.jpg");
-		viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/uranus.jpg");
-		viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/neptune.jpg");
-		viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/ceres.jpg");
-		viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/nightsky.jpg");
+		loadViewModelTextures(viewModel);
 
 		vector<Model> models;
 		models.push_back(sunModel);
@@ -148,19 +171,16 @@ int main(void)
 
 		glEnable(GL_DEPTH_TEST);
 
-
-		for (int i = 1; i < solarSystem.modelArray.size(); i++) {
-			solarSystem.dynamicArray.push_back(solarSystem.myVertices);
-			solarSystem.findEllipse(i, true);
-		}
-
-		for (int i = 1; i < solarSystem.modelArray.size(); i++) {
-			solarSystem.findEllipse(i, false);
-		}
-
+		findEllipse(solarSystem);
 		planetOrbit.addVertices();
-
 		cout << "Found orbit vertices" << endl;
+
+		cout << "Generating asteroid belt... " << endl;
+
+		asteroidBelt asteroidInstance(asteroidShader, &rock, constG, solarSystem.modelArray[0].mass);
+		asteroidInstance.findAsteroidMatrix(solarSystem);
+		asteroidInstance.createBuffers();
+
 		float refreshTime = 0;
 		while (!glfwWindowShouldClose(window)) {
 
@@ -171,7 +191,7 @@ int main(void)
 			projection = mainCamera.CreateProjectionMatix(viewAngle, width, height);
 			view = mainCamera.CreateViewMatrix();
 
-			processInput(window, deltaTime, solarSystem);
+			processInput(window, deltaTime, solarSystem, asteroidInstance.asteroid[0].position);
 			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -222,6 +242,18 @@ int main(void)
 			test->setInt("texture_diffuse1", 3);
 			test->setMat4("model", model);
 			planetModel.Draw(*test);
+			
+			asteroidShader->useProgram();
+			asteroidShader->setMat4("projection", projection);
+			asteroidShader->setMat4("view", view);
+			asteroidShader->setInt("texture_diffuse1", 11);
+			glActiveTexture(GL_TEXTURE11);
+			glBindTexture(GL_TEXTURE_2D, rock.textures_loaded[0].id);
+			for (unsigned int i = 0; i < rock.meshes.size(); i++) {
+				glBindVertexArray(rock.meshes[i].vertexBuffer);
+				glDrawElementsInstanced(GL_TRIANGLES, rock.meshes[i].indices.size(), GL_UNSIGNED_INT,
+					0, asteroidInstance.amount);
+ 			}
 
 			view = glm::mat4(glm::mat3(mainCamera.CreateViewMatrix()));
 			skyBox.drawCubemap(view, projection, skyShader);
