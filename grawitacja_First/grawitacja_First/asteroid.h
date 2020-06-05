@@ -19,11 +19,16 @@ Model;
 class asteroidBelt
 {
 public:
-	unsigned int amount = 100000;
+	unsigned int amount = 22000;
+	unsigned int solarSystemAsteroids = 10000;
+	unsigned int saturnFirstRing = 5000;
+	unsigned int saturnSecondRing =7000;
 	struct asteroidProperties {
 		glm::vec3 position = glm::vec3(0.0f);
 		float mass = 0;
 		glm::vec3 vMax = glm::vec3(0.0f);
+		float scale = 0;
+		float rotAngle = 0;
 	}*asteroid;
 
 	struct physicsVariables {
@@ -31,7 +36,7 @@ public:
 		float sunMass;
 	}*physicsProperties;
 
-	asteroidBelt(CreateShader *shader, Model *rock, const float constG, float sunMass){
+	asteroidBelt(CreateShader* shader, Model* rock, const float constG, float sunMass) {
 		asteroidShader = shader;
 		physicsProperties = new physicsVariables{
 			constG,
@@ -48,34 +53,43 @@ public:
 		float jupiterRadius = (solarSystem.modelArray[5].aphelion + solarSystem.modelArray[5].peryhelion) / 2;
 		float earthMass = solarSystem.modelArray[3].mass;
 		float earthRadius = solarSystem.modelArray[3].radius;
-		float radius = marsRadius + (jupiterRadius - marsRadius)/4;
+		float radius = jupiterRadius + marsRadius;
 		float offset = (jupiterRadius - marsRadius)*2;
 		glm::vec3 correction = glm::vec3(offset, 0.0f, offset);
 
+		valuesToAssign result{
+			radius , offset, earthRadius, earthMass,
+			correction, 1000.0f
+		};
+
 		for (unsigned int i = 0; i < amount; i++) {
 			glm::mat4 tempModel = glm::mat4(1.0f);
-			float x, z;
-			float angle = float(i) / float(amount) * 360.0f;
-  			float displacement = (rand() % (int)(2 * offset * 100)) / 35.0 - offset;
-			x = sin(angle) * radius + displacement;
-			displacement = (rand() % (int)(2 * 100)) / 100.0;
-			float y = displacement + 0.4f;
-			displacement = (rand() % (int)(2 * offset * 100)) / 35.0 - offset;
-			z = cos(angle) * radius + displacement;
 
-			glm::vec3 direction = glm::normalize(glm::vec3(x, y, z));
-			asteroid[i].position = glm::vec3(x, y, z) + correction;
-			asteroid[i].vMax = findAsteroidVelocity(asteroid[i].position) * direction;
-			asteroid[i].mass = rand() % (int)(earthMass) / earthMass + earthMass / 1000.0;
-			float scale = (rand()% 10000+1) * earthRadius / 1000.0;
-			float rotAngle = rand() % 360;
+			if (i > solarSystemAsteroids) {
+				result.radius = solarSystem.modelArray[7].radius * 2.5 ;
+				result.offset = result.radius * 0.05f;
+				result.correction = solarSystem.modelArray[7].position;
+				result.sizeDivision = 10000.0f;
+			}
+			if (i > solarSystemAsteroids + saturnFirstRing) {
+				result.radius = solarSystem.modelArray[7].radius * 3.5;
+				result.sizeDivision = 10000.0f;
+			}
 
-			tempModel = glm::translate(tempModel, asteroid[i].position);
-			tempModel = glm::scale(tempModel, glm::vec3(scale));
-			tempModel = glm::rotate(tempModel, rotAngle, glm::vec3(0.4f, 0.6f, 0.8f));
-
-			asteroidMatrices[i] = tempModel;
+			assignProperValues(result, i);
+			assignToAsteroid(result, i);
+			tempModel = returnTempModel(i);
+			
+			assignFinalMatrix(tempModel, i);
 		}
+	}
+
+	glm::vec3 findDisplacement(Gravity solarSystem) {
+		glm::vec3 currentPos = solarSystem.modelArray[7].position;
+		displacement = lastPos - currentPos;
+		lastPos = currentPos;
+
+		return displacement;
 	}
 
 	void createBuffers() {
@@ -106,20 +120,49 @@ public:
 		}
 	}
 
+	glm::mat4* asteroidMatrices;
 private:
-
-	glm::vec3 findAsteroidVelocity(glm::vec3 position) {
-		
-		float xVel = sqrt(physicsProperties->constG * physicsProperties->sunMass / abs(position.x));
-		float yVel = sqrt(physicsProperties->constG * physicsProperties->sunMass / abs(position.y));
-		float zVel = sqrt(physicsProperties->constG * physicsProperties->sunMass / abs(position.z));
-		glm::vec3 vMax = glm::vec3(xVel, yVel, zVel);
-
-		return vMax;
-	}
+	glm::vec3 lastPos = glm::vec3(0.0f);
+	glm::vec3 displacement = glm::vec3(0.0f);
 	CreateShader* asteroidShader;
 	Model *rockPointer;
 	unsigned int ringVBO;
-	glm::mat4* asteroidMatrices;
+
+	struct valuesToAssign {
+		float radius, offset, scale, mass;
+		glm::vec3 correction;
+		float sizeDivision;
+		float x, y, z;
+		float angle, displacement;
+	};
+
+	void assignProperValues(valuesToAssign& result, int iteration) {
+		result.angle = float(iteration) / float(amount) * 360.0f;
+		result.displacement = (rand() % (int)(2 * result.offset * 100)) / 35.0 - result.offset;
+		result.x = sin(result.angle) * result.radius + result.displacement;
+		result.displacement = (rand() % (int)(2 * 100)) / 350.0;
+		result.y = result.displacement + 0.4f;
+		result.displacement = (rand() % (int)(2 * result.offset * 100)) / 35.0 - result.offset;
+		result.z = cos(result.angle) * result.radius + result.displacement;
+	}
+
+	void assignToAsteroid(valuesToAssign result, int id) {
+		asteroid[id].position = glm::vec3(result.x, result.y, result.z) + result.correction;
+		asteroid[id].mass = rand() % (int)(result.mass) / result.mass + result.mass / 1000.0;
+		asteroid[id].scale = (rand() % 10000 + 1) * result.scale / result.sizeDivision;
+		asteroid[id].rotAngle = rand() % 360;
+	}
+	glm::mat4 returnTempModel(int id) {
+		glm::mat4 tempModel = glm::mat4(1.0f);
+		tempModel = glm::translate(tempModel, asteroid[id].position);
+		tempModel = glm::scale(tempModel, glm::vec3(asteroid[id].scale));
+		tempModel = glm::rotate(tempModel, asteroid[id].rotAngle, glm::vec3(0.8f, 0.6f, 0.4f));
+
+		return tempModel;
+	}
+
+	void assignFinalMatrix(glm::mat4 modelToAssign, int id) {
+		asteroidMatrices[id] = modelToAssign;
+	}
 	
 };

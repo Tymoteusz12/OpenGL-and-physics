@@ -35,7 +35,9 @@ public:
 	void loadSunData();
 	void loadPlanetsData();
 	void findResultantForce(int index);
+	glm::vec3 findForce(glm::vec3);
 	void updatePosition(int index);
+	void updateMoonOrbit();
 
 	void findEllipse(int, bool);
 	~Gravity(){}

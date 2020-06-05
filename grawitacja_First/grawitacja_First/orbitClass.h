@@ -50,6 +50,20 @@ public:
 	void drawOrbit() {
 		for (int i = 0; i < verticesPointer->dynamicArray.size(); i++) {
 			copyVertices(i);
+
+			if (i == 3) {
+				static glm::vec3 currentPos = verticesPointer->modelArray[3].position;
+				displacement = lastPos - currentPos;
+				lastPos = verticesPointer->modelArray[3].position;
+				glm::mat4 model = glm::mat4(1.0f);
+				model = glm::translate(model, displacement);
+				orbitShader->setMat4("model", model);
+			}
+			else {
+				glm::mat4 model = glm::mat4(1.0f);
+				orbitShader->setMat4("model", model);
+			}
+
 			if (pointsToDraw != 0) {
 				createBuffers(i);
 				glBindVertexArray(orbitVAO);
@@ -64,6 +78,8 @@ public:
 private:
 	unsigned int orbitVBO, orbitVAO;
 	unsigned int *pointsToDraw;
+	glm::vec3 lastPos = glm::vec3(0.0f);
+	glm::vec3 displacement = glm::vec3(0.0f);
 	CreateShader* orbitShader;
 	Gravity* verticesPointer;
 	float **verticesToDraw;

@@ -53,7 +53,7 @@ void processInput(GLFWwindow* window, float deltaTime, Gravity solarSystem, glm:
 		viewMode = false;
 	}
 	if (glfwGetKey(window, GLFW_KEY_F3) == GLFW_PRESS and !press) {
-		mainCamera.cameraPos = solarSystem.modelArray[id++ % 10].position + glm::dvec3(3*solarSystem.modelArray[3].radius);
+		mainCamera.cameraPos = solarSystem.modelArray[id++ % 11].position + glm::dvec3(2*solarSystem.modelArray[3].radius);
 		press = true;
 	}
 	if (glfwGetKey(window, GLFW_KEY_F3) == GLFW_RELEASE and press)
@@ -86,6 +86,7 @@ void loadViewModelTextures(model3D* viewModel) {
 	viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/mercury.png");
 	viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/venus.jpg");
 	viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/earth.jpg");
+	viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/moon.png");
 	viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/mars.jpg");
 	viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/jupiter.jpg");
 	viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/saturn.jpg");
@@ -171,9 +172,10 @@ int main(void)
 
 		glEnable(GL_DEPTH_TEST);
 
+		cout << "Finding orbit vertices..." << endl;
 		findEllipse(solarSystem);
 		planetOrbit.addVertices();
-		cout << "Found orbit vertices" << endl;
+		
 
 		cout << "Generating asteroid belt... " << endl;
 
@@ -181,6 +183,8 @@ int main(void)
 		asteroidInstance.findAsteroidMatrix(solarSystem);
 		asteroidInstance.createBuffers();
 
+
+		glm::vec3 ringTranslation = solarSystem.modelArray[7].position;
 		float refreshTime = 0;
 		while (!glfwWindowShouldClose(window)) {
 
@@ -195,7 +199,7 @@ int main(void)
 			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			for (int i = 0; i <= 10; i++) {
+			for (int i = 0; i <= 11; i++) {
 				glActiveTexture(GL_TEXTURE0 + i);
 				glBindTexture(GL_TEXTURE_2D, viewModel->myTextures[i]);
 			}
@@ -205,7 +209,7 @@ int main(void)
 
 			model = glm::mat4(1.0f);
 			orbitShader->useProgram();
-			orbitShader->setVec3("color", 0.0f, 1.0f, 0.0f);
+			orbitShader->setBool("isAxis", false);
 			orbitShader->setMat4("projection", projection);
 			orbitShader->setMat4("view", view);
 			orbitShader->setMat4("model", model);
@@ -213,8 +217,10 @@ int main(void)
 			refreshTime += deltaTime;
 			if (refreshTime >= 0.001f) {
 				refreshTime = 0.0f;
-				planetOrbit.drawOrbit();
+				planetOrbit.drawOrbit(); 
 				axes.drawAxes();
+				asteroidShader->useProgram();
+				asteroidShader->setVec3("translation", -ringTranslation);
 			}
 
 			model = glm::mat4(1.0f);
@@ -243,6 +249,7 @@ int main(void)
 			test->setMat4("model", model);
 			planetModel.Draw(*test);
 			
+			ringTranslation += asteroidInstance.findDisplacement(solarSystem);
 			asteroidShader->useProgram();
 			asteroidShader->setMat4("projection", projection);
 			asteroidShader->setMat4("view", view);
