@@ -1,4 +1,3 @@
-#Solar-System
 Having fun with physics by learning OpenGL 
 
 This is a Solar System replica with very close scale.
