@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Pliki źródłowe">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Pliki zasobów">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="shaders">
+      <UniqueIdentifier>{629c182d-bac6-4a85-825e-02bad8020601}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders\LightShaders">
+      <UniqueIdentifier>{e88bff00-55e7-4d73-8bb3-2d498219c894}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PotrzebneKlasy">
+      <UniqueIdentifier>{57370b9f-28c4-4c39-89b9-5906dc143fa6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\namespaces">
+      <UniqueIdentifier>{7872e48b-bae7-4bf3-bfaa-cf851716eceb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders\ObjectShaders">
+      <UniqueIdentifier>{b5fb6af8-420e-4137-af61-59bd58c9caba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\includes">
+      <UniqueIdentifier>{c055fddb-932b-4a54-b98a-4c7269567976}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders\Cube map">
+      <UniqueIdentifier>{b4588051-dda8-40f9-ba2b-d70a431257ec}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Źródło.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowInit.h">
+      <Filter>PotrzebneKlasy</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>PotrzebneKlasy</Filter>
+    </ClCompile>
+    <ClCompile Include="cubeClass.cpp">
+      <Filter>PotrzebneKlasy</Filter>
+    </ClCompile>
+    <ClCompile Include="Shaders.cpp">
+      <Filter>PotrzebneKlasy</Filter>
+    </ClCompile>
+    <ClCompile Include="mainSource.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Dependencies\GLAD\src\glad.c">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="gravityPhysics.cpp">
+      <Filter>PotrzebneKlasy</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Shaders.h">
+      <Filter>PotrzebneKlasy</Filter>
+    </ClInclude>
+    <ClInclude Include="variables.h">
+      <Filter>Pliki źródłowe\namespaces</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>PotrzebneKlasy</Filter>
+    </ClInclude>
+    <ClInclude Include="cubeClass.h">
+      <Filter>PotrzebneKlasy</Filter>
+    </ClInclude>
+    <ClInclude Include="OBJloader.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="booleans.h">
+      <Filter>Pliki źródłowe\namespaces</Filter>
+    </ClInclude>
+    <ClInclude Include="complexTypes.h">
+      <Filter>Pliki źródłowe\namespaces</Filter>
+    </ClInclude>
+    <ClInclude Include="arrays.h">
+      <Filter>Pliki źródłowe\namespaces</Filter>
+    </ClInclude>
+    <ClInclude Include="vectors.h">
+      <Filter>Pliki źródłowe\namespaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Dependencies\headers\mesh.h">
+      <Filter>PotrzebneKlasy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Dependencies\headers\model.h">
+      <Filter>PotrzebneKlasy</Filter>
+    </ClInclude>
+    <ClInclude Include="gravityPhysics.h">
+      <Filter>PotrzebneKlasy</Filter>
+    </ClInclude>
+    <ClInclude Include="cubemap.h">
+      <Filter>PotrzebneKlasy</Filter>
+    </ClInclude>
+    <ClInclude Include="orbitClass.h">
+      <Filter>PotrzebneKlasy</Filter>
+    </ClInclude>
+    <ClInclude Include="axisLines.h">
+      <Filter>PotrzebneKlasy</Filter>
+    </ClInclude>
+    <ClInclude Include="asteroid.h">
+      <Filter>PotrzebneKlasy</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="FragmentShaderCode.glsl">
+      <Filter>shaders\ObjectShaders</Filter>
+    </None>
+    <None Include="VertexShaderCode.glsl">
+      <Filter>shaders\ObjectShaders</Filter>
+    </None>
+    <None Include="LightFragmentShader.glsl">
+      <Filter>shaders\LightShaders</Filter>
+    </None>
+    <None Include="LightVertexShader.glsl">
+      <Filter>shaders\LightShaders</Filter>
+    </None>
+    <None Include="cubeVertex.glsl">
+      <Filter>shaders\Cube map</Filter>
+    </None>
+    <None Include="cubeFragment.glsl">
+      <Filter>shaders\Cube map</Filter>
+    </None>
+    <None Include="orbitVertex.glsl">
+      <Filter>shaders\ObjectShaders</Filter>
+    </None>
+    <None Include="orbitFragment.glsl">
+      <Filter>shaders\ObjectShaders</Filter>
+    </None>
+    <None Include="testV.glsl">
+      <Filter>shaders\ObjectShaders</Filter>
+    </None>
+    <None Include="testF.glsl">
+      <Filter>shaders\ObjectShaders</Filter>
+    </None>
+    <None Include="asteroidV.glsl">
+      <Filter>shaders\ObjectShaders</Filter>
+    </None>
+    <None Include="asteroidF.glsl">
+      <Filter>shaders\ObjectShaders</Filter>
+    </None>
+  </ItemGroup>
+</Project>

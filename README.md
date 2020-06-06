@@ -1,10 +1,6 @@
-# OpenGL-and-physics
 Having fun with physics by learning OpenGL 
 
-In this repository I will submit projects written in C++ language. I'm using OpenGL to create pretty interesting physics simulations.
+This is a Solar System replica with very close scale.
 
-You can find here:
-
--Solar System replica (with almost exact scale, it's tremendous and amazing!)
-
--Rigid body simulations (soon)
+Camera moves with the Speed of Light, distances from the Sun are more or less exact. Planet scale is the same as real (compared to other object, orbits and space).
+It is a project which mainly purpuse is learning OpenGL and train c++ programming.
