@@ -143,7 +143,7 @@ void Gravity::findEllipse(int index, bool positive) {
 		else if (index == 4)
 			currentX -= 1E6 * scale;
 		else
-			currentX -= modelArray[index].peryhelion * 0.001;
+			currentX -= modelArray[index].peryhelion * 0.01;
 		
 	}
 }
