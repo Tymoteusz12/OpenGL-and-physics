@@ -13,6 +13,8 @@ using namespace std;
 
 class Gravity {
 public:
+	int id = 0;
+	bool press = false;
 	struct modelData {
 		double mass = 0.0f;
 		double radius = 0.0f;
@@ -30,25 +32,26 @@ public:
 	}myVertices;
 
 	vector<ellipseVertices> dynamicArray;
-	Gravity(double constG, double refreshValue);
+	Gravity(const double, const double);
 
 	void loadSunData();
 	void loadPlanetsData();
-	void findResultantForce(int index);
+	void findResultantForce(int);
 	glm::vec3 findForce(glm::vec3);
-	void updatePosition(int index);
-	void updateMoonOrbit();
-
+	void updatePosition(int);
 	void findEllipse(int, bool);
 	~Gravity(){}
 private:
 	float refreshTime = 0;
-	double scale = 1.0E-7;
+	const double scale = 1.0E-7;
 	const double constG;
 	const double refreshValue;
+	struct ellipseProperties;
 	glm::dvec3 resultantForce;
+	const double findModelSpeed(modelData, modelData);
+	void assignValuesForMoon(ellipseProperties&, glm::dvec3&);
+	bool isMoon(unsigned int);
 	
-	double findModelSpeed(modelData planet, modelData sun);
 };
 
 #endif

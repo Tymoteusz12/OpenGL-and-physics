@@ -20,8 +20,6 @@
 #include "asteroid.h"
 #include <iostream>
 
-#define PI 3.14159265
-
 using namespace std;
 using namespace variables;
 using namespace booleans;
@@ -36,10 +34,8 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
 	glViewport(0, 0, width, height);
 }
 
-void processInput(GLFWwindow* window, float deltaTime, Gravity solarSystem, glm::vec3 asteroid) {
-	static int id = 0;
-	static bool press = false;
-	static bool pressForAsteroidBelt = false;
+void processInput(GLFWwindow* window, float deltaTime, Gravity &solarSystem, glm::vec3 asteroid) {
+	
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
 	if (glfwGetKey(window, GLFW_KEY_F1) == GLFW_PRESS and !viewMode) {
@@ -52,12 +48,12 @@ void processInput(GLFWwindow* window, float deltaTime, Gravity solarSystem, glm:
 		mainCamera.setPositionAndDirection(mainCamera.cameraPos, 0.0f);
 		viewMode = false;
 	}
-	if (glfwGetKey(window, GLFW_KEY_F3) == GLFW_PRESS and !press) {
-		mainCamera.cameraPos = solarSystem.modelArray[id++ % 11].position + glm::dvec3(2*solarSystem.modelArray[3].radius);
-		press = true;
+	if (glfwGetKey(window, GLFW_KEY_F3) == GLFW_PRESS and !solarSystem.press) {
+		mainCamera.cameraPos = solarSystem.modelArray[solarSystem.id++ % 11].position + glm::dvec3(2*solarSystem.modelArray[3].radius);
+		solarSystem.press = true;
 	}
-	if (glfwGetKey(window, GLFW_KEY_F3) == GLFW_RELEASE and press)
-		press = false;
+	if (glfwGetKey(window, GLFW_KEY_F3) == GLFW_RELEASE and solarSystem.press)
+		solarSystem.press = false;
 
 	if (glfwGetKey(window, GLFW_KEY_F4) == GLFW_PRESS)
 		mainCamera.cameraPos = asteroid;
@@ -82,32 +78,32 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 }
 
 void loadViewModelTextures(model3D* viewModel) {
-	viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/sun_texture.jpg");
-	viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/mercury.png");
-	viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/venus.jpg");
-	viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/earth.jpg");
-	viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/moon.png");
-	viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/mars.jpg");
-	viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/jupiter.jpg");
-	viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/saturn.jpg");
-	viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/uranus.jpg");
-	viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/neptune.jpg");
-	viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/ceres.jpg");
-	viewModel->loadTexture("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/nightsky.jpg");
+	viewModel->loadTexture("textures/sun_texture.jpg");
+	viewModel->loadTexture("textures/mercury.png");
+	viewModel->loadTexture("textures/venus.jpg");
+	viewModel->loadTexture("textures/earth.jpg");
+	viewModel->loadTexture("textures/moon.png");
+	viewModel->loadTexture("textures/mars.jpg");
+	viewModel->loadTexture("textures/jupiter.jpg");
+	viewModel->loadTexture("textures/saturn.jpg");
+	viewModel->loadTexture("textures/uranus.jpg");
+	viewModel->loadTexture("textures/neptune.jpg");
+	viewModel->loadTexture("textures/ceres.jpg");
+	viewModel->loadTexture("textures/nightsky.jpg");
 }
 
 void findEllipse(Gravity &solarSystem) {
-	for (int i = 1; i < solarSystem.modelArray.size(); i++) {
+	for (unsigned int i = 1; i < solarSystem.modelArray.size(); i++) {
 		solarSystem.dynamicArray.push_back(solarSystem.myVertices);
 		solarSystem.findEllipse(i, true);
 	}
 
-	for (int i = 1; i < solarSystem.modelArray.size(); i++) {
+	for (unsigned int i = 1; i < solarSystem.modelArray.size(); i++) {
 		solarSystem.findEllipse(i, false);
 	}
 }
 
-void updateModelPositions(Gravity &solarSystem, vector<Model> &models, CreateShader *shader, int index) {
+void updateModelPositions(Gravity &solarSystem, vector<Model> &models, CreateShader *shader, unsigned int index) {
 		
 		solarSystem.findResultantForce(index);
 		float radiusToScale = solarSystem.modelArray[index].radius;
@@ -185,7 +181,7 @@ int main(void)
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_MULTISAMPLE);
 
-		for (int i = 0; i <= 11; i++) {
+		for (unsigned int i = 0; i <= 11; i++) {
 			glActiveTexture(GL_TEXTURE0 + i);
 			glBindTexture(GL_TEXTURE_2D, viewModel->myTextures[i]);
 		}
@@ -232,7 +228,7 @@ int main(void)
 			viewModel->setMaterialProperties(0, 32.0f);
 			viewModel->setSpotLightProperties(spotLightVecProperties, spotLightFloatProperties);
 
-			for (int i = 0; i < solarSystem.modelArray.size(); i++) {
+			for (unsigned int i = 0; i < solarSystem.modelArray.size(); i++) {
 				viewModel->setMaterialProperties(i, 32.0f);
 				viewModel->setSpotLightProperties(spotLightVecProperties, spotLightFloatProperties);
 				updateModelPositions(solarSystem, models, BlockShader, i);

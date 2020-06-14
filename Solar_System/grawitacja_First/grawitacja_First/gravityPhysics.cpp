@@ -1,7 +1,17 @@
 #include "gravityPhysics.h"
 
+struct Gravity::ellipseProperties {
+	const double moonRadius;
+	double currentX;
+	double resultantZ;
+	double majorA;
+	double minorB;
+	double translationC;
+};
 
-Gravity::Gravity(double constG, double refreshValue) :
+bool isMoon(int);
+
+Gravity::Gravity(const double constG, const double refreshValue) :
 	constG(constG), refreshValue(refreshValue){}
 
 void Gravity::loadSunData() {
@@ -17,12 +27,11 @@ void Gravity::loadSunData() {
 }
 
 void Gravity::loadPlanetsData() {
-	int modelAmount{};
-	modelAmount = 10;
+	const int modelAmount{10};
 
 	cout << "Loading planet data... " << endl;
 
-	double planetData[] = {
+	const double planetData[] = {
 		//aphelion , perihelion, radius, mass
 		69.8E9, 46.0E9, 2.4395E6, 0.33E24, // Mercury
 		108.9E9, 107.5E9, 6.052E6, 4.87E24, // Venus
@@ -40,7 +49,7 @@ void Gravity::loadPlanetsData() {
 
 	};
 
-	for (int i = 0; i < modelAmount; i++) {
+	for (unsigned int i = 0; i < modelAmount; i++) {
 		
 		planet.mass = planetData[i * 4 + 3] * scale;
 		planet.radius = planetData[i * 4 + 2] * scale;
@@ -48,10 +57,8 @@ void Gravity::loadPlanetsData() {
 		planet.aphelion = planetData[i * 4] * scale;
 
 		planet.position = glm::vec3(planet.peryhelion, 0.0f, 0.0f);
-
-		double vMax;
 		if (i != 3) {
-			vMax = findModelSpeed(planet, modelArray[0]);
+			const double vMax = findModelSpeed(planet, modelArray[0]);
 			planet.vMax = glm::vec3(0.0f, 0.0f, -vMax);
 		}
 		if (i == 2)
@@ -64,11 +71,11 @@ void Gravity::loadPlanetsData() {
 	}
 }
 
-double Gravity::findModelSpeed(modelData planet, modelData sun) {
+const double Gravity::findModelSpeed(modelData planet, modelData sun){
 
-	double constVal = -2 * constG * sun.mass * (1 / planet.aphelion - 1 / planet.peryhelion);
-	double kepler = 1 - pow(planet.peryhelion / planet.aphelion, 2.0f);
-	double vMax = sqrt(constVal / kepler);
+	const double constVal = -2 * constG * sun.mass * (1 / planet.aphelion - 1 / planet.peryhelion);
+	const double kepler = 1 - pow(planet.peryhelion / planet.aphelion, 2.0f);
+	const double vMax = sqrt(constVal / kepler);
 
 	return vMax;
 }
@@ -101,37 +108,32 @@ glm::vec3 Gravity::findForce(glm::vec3 objectPosition) {
 }
 
 void Gravity::findEllipse(int index, bool positive) {
-	double moonRadius = 384400000 * scale;
-	double currentX = modelArray[index].peryhelion;
-	double resultantZ = 0;
-	double majorA = 0.5 * (modelArray[index].aphelion + modelArray[index].peryhelion);
-	double minorB = 0.5 * (sqrt(pow(modelArray[index].aphelion, 2.0) + 2.0 * modelArray[index].aphelion * modelArray[index].peryhelion));
-	double translationC = 0;
+	const double tempMajorA = 0.5 * (modelArray[index].aphelion + modelArray[index].peryhelion);
+	const double tempMinorB = 0.5 * (sqrt(pow(modelArray[index].aphelion, 2.0) + 2.0 * modelArray[index].aphelion * modelArray[index].peryhelion));
+	ellipseProperties ellipseValues = {
+		384400000 * scale, modelArray[index].peryhelion, 0, tempMajorA, tempMinorB, 0
+	};
+
 	int mirrorEllipse = 1;
 	glm::dvec3 centerPoint = modelArray[0].position;
-	if (sqrt(pow(majorA, 2.0) - pow(minorB, 2.0) >= 0))
-		translationC = modelArray[index].aphelion - majorA;
-	if (index == 4) {
-		currentX = moonRadius;
-		majorA = moonRadius;
-		minorB = moonRadius;
-		centerPoint = modelArray[3].position;
-		translationC = 0;
-	}
+	ellipseValues.translationC = modelArray[index].aphelion - ellipseValues.majorA;
+	if (isMoon(index))
+		assignValuesForMoon(ellipseValues, centerPoint);
 
-	double ellipseRelation = -pow((currentX + translationC) / majorA, 2.0) + 1;
+	//use as a struct ellipseValues
+	double ellipseRelation = -pow((ellipseValues.currentX + ellipseValues.translationC) / ellipseValues.majorA, 2.0) + 1;
 
  	if (!positive)
 		mirrorEllipse = -1;
 
 	while (ellipseRelation >= 0) {
-		ellipseRelation = -pow((currentX + translationC) / majorA, 2.0) + 1;
-		resultantZ = mirrorEllipse * sqrt(ellipseRelation) * minorB + centerPoint.z;
+		ellipseRelation = -pow((ellipseValues.currentX + ellipseValues.translationC) / ellipseValues.majorA, 2.0) + 1;
+		ellipseValues.resultantZ = mirrorEllipse * sqrt(ellipseRelation) * ellipseValues.minorB + centerPoint.z;
 
-		glm::dvec3 orbitVertices = glm::dvec3(currentX + centerPoint.x, 0.0f, resultantZ);
+		glm::dvec3 orbitVertices = glm::dvec3(ellipseValues.currentX + centerPoint.x, 0.0f, ellipseValues.resultantZ);
 
-		if (currentX <= -modelArray[index].aphelion or currentX >= modelArray[index].peryhelion)
-			orbitVertices = glm::dvec3(currentX + centerPoint.x, 0.0f, 0.0f);
+		if (ellipseValues.currentX <= -modelArray[index].aphelion or ellipseValues.currentX >= modelArray[index].peryhelion)
+			orbitVertices = glm::dvec3(ellipseValues.currentX + centerPoint.x, 0.0f, 0.0f);
 
 		if (!positive)
 			dynamicArray[index - 1].assignArrayMinus.push_back(orbitVertices);
@@ -139,11 +141,11 @@ void Gravity::findEllipse(int index, bool positive) {
 			dynamicArray[index - 1].assignArrayPlus.push_back(orbitVertices);
 
 		if (index > 5)
-			currentX -= modelArray[index].peryhelion * 0.002 * double(index);
+			ellipseValues.currentX -= modelArray[index].peryhelion * 0.002 * double(index);
 		else if (index == 4)
-			currentX -= 1E6 * scale;
+			ellipseValues.currentX -= 1E6 * scale;
 		else
-			currentX -= modelArray[index].peryhelion * 0.001;
+			ellipseValues.currentX -= modelArray[index].peryhelion * 0.001;
 		
 	}
 }
@@ -152,5 +154,16 @@ void Gravity::updatePosition(int index) {
 
 	gravityVelocity[index] += resultantForce * refreshValue * 1E8;
 	modelArray[index].position += (modelArray[index].vMax + gravityVelocity[index]) * refreshValue * 1E8;
+}
 
+void Gravity::assignValuesForMoon(ellipseProperties& moonEllipse, glm::dvec3 &centerPoint) {
+	moonEllipse.currentX = moonEllipse.moonRadius;
+	moonEllipse.majorA = moonEllipse.moonRadius;
+	moonEllipse.minorB = moonEllipse.moonRadius;
+	centerPoint = modelArray[3].position;
+	moonEllipse.translationC = 0;
+}
+
+bool Gravity::isMoon(unsigned int index) {
+	return (index == 4) ? true : false;
 }

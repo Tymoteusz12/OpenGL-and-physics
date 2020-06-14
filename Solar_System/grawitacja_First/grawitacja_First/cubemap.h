@@ -15,7 +15,7 @@ class cubeMap
 {
 public:
 
-	cubeMap(vector<string> faces, float *skyboxVertices, unsigned int arraySize) {
+	cubeMap(const vector<const char*> faces, const float *skyboxVertices, const unsigned int arraySize) {
 
 		this->skyboxVertices = skyboxVertices;
 		this->arraySize = arraySize;
@@ -26,7 +26,7 @@ public:
 		int width, height, nrChannels;
 		for (unsigned int i = 0; i < faces.size(); i++) {
 
-			unsigned char* data = stbi_load(faces[i].c_str(), &width, &height, &nrChannels, 0);
+			unsigned char* data = stbi_load(faces[i], &width, &height, &nrChannels, 0);
 			if (data) {
 				glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
 					0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data
@@ -66,7 +66,7 @@ public:
 private:
 
 	unsigned int cubemapTexture, skyboxVAO, skyboxVBO, arraySize;
-	float *skyboxVertices;
+	const float *skyboxVertices;
 	void createAndBindBuffers() {
 
 		glGenVertexArrays(1, &skyboxVAO);

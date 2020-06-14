@@ -19,24 +19,23 @@ Model;
 class asteroidBelt
 {
 public:
-	unsigned int amount = 22000;
-	unsigned int solarSystemAsteroids = 10000;
-	unsigned int saturnFirstRing = 5000;
-	unsigned int saturnSecondRing =7000;
+	const unsigned int amount = 22000;
+	const unsigned int solarSystemAsteroids = 10000;
+	const unsigned int saturnFirstRing = 5000;
+	const unsigned int saturnSecondRing =7000;
+	glm::mat4* asteroidMatrices;
 	struct asteroidProperties {
 		glm::vec3 position = glm::vec3(0.0f);
-		float mass = 0;
-		glm::vec3 vMax = glm::vec3(0.0f);
 		float scale = 0;
 		float rotAngle = 0;
 	}*asteroid;
 
 	struct physicsVariables {
 		const float constG;
-		float sunMass;
+		const float sunMass;
 	}*physicsProperties;
 
-	asteroidBelt(CreateShader* shader, Model* rock, const float constG, float sunMass) {
+	asteroidBelt(CreateShader* shader, Model* rock, const float constG, const float sunMass) {
 		asteroidShader = shader;
 		physicsProperties = new physicsVariables{
 			constG,
@@ -49,10 +48,10 @@ public:
 
 	void findAsteroidMatrix(Gravity solarSystem) {
 		srand(glfwGetTime());
-		float marsRadius = (solarSystem.modelArray[4].aphelion + solarSystem.modelArray[4].peryhelion) / 2;
-		float jupiterRadius = (solarSystem.modelArray[5].aphelion + solarSystem.modelArray[5].peryhelion) / 2;
-		float earthMass = solarSystem.modelArray[3].mass;
-		float earthRadius = solarSystem.modelArray[3].radius;
+		const float marsRadius = (solarSystem.modelArray[4].aphelion + solarSystem.modelArray[4].peryhelion) / 2;
+		const float jupiterRadius = (solarSystem.modelArray[5].aphelion + solarSystem.modelArray[5].peryhelion) / 2;
+		const float earthMass = solarSystem.modelArray[3].mass;
+		const float earthRadius = solarSystem.modelArray[3].radius;
 		float radius = jupiterRadius + marsRadius;
 		float offset = (jupiterRadius - marsRadius)*2;
 		glm::vec3 correction = glm::vec3(offset, 0.0f, offset);
@@ -120,7 +119,6 @@ public:
 		}
 	}
 
-	glm::mat4* asteroidMatrices;
 private:
 	glm::vec3 lastPos = glm::vec3(0.0f);
 	glm::vec3 displacement = glm::vec3(0.0f);
@@ -148,7 +146,6 @@ private:
 
 	void assignToAsteroid(valuesToAssign result, int id) {
 		asteroid[id].position = glm::vec3(result.x, result.y, result.z) + result.correction;
-		asteroid[id].mass = rand() % (int)(result.mass) / result.mass + result.mass / 1000.0;
 		asteroid[id].scale = (rand() % 10000 + 1) * result.scale / result.sizeDivision;
 		asteroid[id].rotAngle = rand() % 360;
 	}

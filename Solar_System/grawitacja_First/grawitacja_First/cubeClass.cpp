@@ -5,7 +5,7 @@ model3D::model3D(Camera* cameraPointer, CreateShader* shaderPointer, glm::vec3 g
 	frictionForce(frictionForce)
 {}
 
-void model3D::setVertexAndBuffer(float vertices[], unsigned int size, unsigned int typeID) {
+void model3D::setVertexAndBuffer(float vertices[], const unsigned int size, unsigned int typeID) {
 	if (typeID == 2)
 		typeID = 3;
 	else
@@ -67,24 +67,24 @@ void model3D::loadTexture(char const* path) {
 	myTextures.push_back(tempID);
 }
 
-void model3D::DrawObject(unsigned int startingPoint, unsigned int endingPoint) {
+void model3D::DrawObject(const unsigned int startingPoint, const unsigned int endingPoint) {
 	glBindVertexArray(vertexBuffer);
 	glDrawArrays(GL_TRIANGLES, startingPoint, endingPoint);
 }
 
-void model3D::setMaterialProperties(int textureID, float shininess) {
+void model3D::setMaterialProperties(const int textureID, const float shininess) {
 	shaderPointer->setInt("material.diffuse", textureID);
 	shaderPointer->setInt("material.specular", textureID);
 	shaderPointer->setFloat("material.shininess", shininess);
 }
 
-void model3D::setMaterialProperties(int firstTextureID, int secondTextureID, float shininess) {
+void model3D::setMaterialProperties(const int firstTextureID, const int secondTextureID, const float shininess) {
 	shaderPointer->setInt("material.diffuse", firstTextureID);
 	shaderPointer->setInt("material.specular", secondTextureID);
 	shaderPointer->setFloat("material.shininess", shininess);
 }
 
-void model3D::setSpotLightProperties(glm::vec3 vecProperties[], float floatProperties[]) {
+void model3D::setSpotLightProperties(glm::vec3 vecProperties[], const float floatProperties[]) {
 	shaderPointer->setVec3("spotLight.position", vecProperties[0]);
 	shaderPointer->setVec3("spotLight.direction", vecProperties[1]);
 	shaderPointer->setVec3("spotLight.color", vecProperties[2]);
@@ -98,7 +98,7 @@ void model3D::setSpotLightProperties(glm::vec3 vecProperties[], float floatPrope
 	shaderPointer->setFloat("spotLight.outerCutOff", floatProperties[4]);
 }
 
-void model3D::setSpotLightProperties(glm::vec3 vecProperties[], float floatProperties[], unsigned int modelCount) {
+void model3D::setSpotLightProperties(glm::vec3 vecProperties[], const float floatProperties[], const unsigned int modelCount) {
 	for (int i = 0; i < modelCount; i++) {
 		string number = to_string(i);
 		shaderPointer->setVec3(("spotLight[" + number + "].position").c_str(), vecProperties[0 + 6 * i]);
@@ -123,7 +123,7 @@ void model3D::setDirLightProperties(glm::vec3 vecProperties[]) {
 	shaderPointer->setVec3("dirLight.specular", vecProperties[4]);
 }
 
-void model3D::setDirtLightProperties(glm::vec3 vecProperties[], unsigned int modelCount) {
+void model3D::setDirtLightProperties(glm::vec3 vecProperties[], const unsigned int modelCount) {
 	for (int i = 0; i < modelCount; i++) {
 		string number = to_string(i);
 		shaderPointer->setVec3(("dirLight[" + number + "].direction").c_str(), vecProperties[0 + 6 * i]);

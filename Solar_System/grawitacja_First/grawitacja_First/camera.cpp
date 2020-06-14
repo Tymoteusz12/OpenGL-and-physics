@@ -1,10 +1,10 @@
 #include "camera.h"
 
-Camera::Camera(float width, float height, const glm::vec3 gravityForce) :
+Camera::Camera(const float width, const float height, const glm::vec3 gravityForce) :
 	width(width), height(height), gravity(gravityForce), lastx(width / 2), lasty(height / 2) 
 {}
 
-Camera::Camera(float width, float height) :
+Camera::Camera(const float width, const float height) :
 	width(width), height(height), lastx(width / 2), lasty(height / 2) {}
 
 glm::mat4 Camera::CreateViewMatrix() {
@@ -12,7 +12,7 @@ glm::mat4 Camera::CreateViewMatrix() {
 	return currentView;
 }
 
-glm::mat4 Camera::CreateProjectionMatix(float& radians, float& width, float& height) {
+glm::mat4 Camera::CreateProjectionMatix(const float& radians, const float& width, const float& height) {
 	return glm::perspective(glm::radians(radians), width / height, 0.1f, (float)6.0E10);
 }
 
@@ -24,9 +24,9 @@ void Camera::MoveCameraFunction(GLFWwindow* window, float deltaTime) {
 	}
 	else {
 		if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
-			cameraSpeed = 300.0;
+			cameraSpeed = 3000.0;
 		if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) != GLFW_PRESS)
-			cameraSpeed = 2.997;
+			cameraSpeed = 29.97;
 		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 			cameraPos += cameraSpeed * deltaTime * cameraFront;
 		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
@@ -105,10 +105,10 @@ void Camera::mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 	cameraFront = glm::normalize(direction);
 
 	if (mainMouse.rightButton) {
-		trans = cameraPos + cameraFront* glm::vec3(0.31855);
+		trans = cameraPos + cameraFront* glm::vec3(3.1855);
 	}
 	if (mainMouse.leftButton)
-		cameraPos = -cameraFront * glm::vec3(0.31855) + trans;
+		cameraPos = -cameraFront * glm::vec3(3.1855) + trans;
 
 }
 
