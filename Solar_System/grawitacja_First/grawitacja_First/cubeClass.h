@@ -39,35 +39,35 @@ public:
 
 	model3D() {}
 
-	void setVertexAndBuffer(float vertices[], unsigned int size, unsigned int typeID);
+	void setVertexAndBuffer(float[], const unsigned int, unsigned int);
 
-	void loadTexture(char const* path);
+	void loadTexture(char const*);
 
-	void DrawObject(unsigned int startingPoint, unsigned int endingPoint);
+	void DrawObject(const unsigned int, const unsigned int);
 
-	void setMaterialProperties(int textureID, float shininess);
+	void setMaterialProperties(const int, const float);
 
-	void setMaterialProperties(int firstTextureID, int secondTextureID, float shininess);
+	void setMaterialProperties(const int, const int, float);
 	
-	void setSpotLightProperties(glm::vec3 vecProperties[], float floatProperties[]);
+	void setSpotLightProperties(glm::vec3[], const float[]);
 
-	void setSpotLightProperties(glm::vec3 vecProperties[], float floatProperties[], unsigned int modelCount);
+	void setSpotLightProperties(glm::vec3[], const float [], const unsigned int);
 
-	void setDirLightProperties(glm::vec3 vecProperties[]);
+	void setDirLightProperties(glm::vec3[]);
 
-	void setDirtLightProperties(glm::vec3 vecProperties[], unsigned int modelCount);
+	void setDirtLightProperties(glm::vec3[], const unsigned int);
 
-	glm::mat4 setModelProperties(glm::vec3 translation, glm::vec3 scale, glm::vec3 rotateAxis, float degrees, glm::mat4* model);
+	glm::mat4 setModelProperties(glm::vec3, glm::vec3, glm::vec3, float, glm::mat4*);
 
-	glm::mat4 setModelProperties(glm::vec3 translation, glm::vec3 scale, glm::mat4* model);
+	glm::mat4 setModelProperties(glm::vec3, glm::vec3, glm::mat4*);
 
-	void moveModel(glm::vec3& modelPos, glm::vec3 modelScale, glm::vec3& speedVec, float deltaTime, bool isFlying);
+	void moveModel(glm::vec3&, glm::vec3, glm::vec3&, float, bool);
 
-	void SimulateGravity(glm::vec3& modelPos, float deltaTime);
+	void SimulateGravity(glm::vec3&, float);
 
-	void SimulateFriction(glm::vec3& modelPos, float deltaTime);
+	void SimulateFriction(glm::vec3&, float);
 
-	void SimulateMove(glm::vec3& modelPos, float deltaTime);
+	void SimulateMove(glm::vec3&, float);
 
 	~model3D() {};
 };

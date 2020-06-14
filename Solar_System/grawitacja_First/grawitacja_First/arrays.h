@@ -5,11 +5,11 @@ namespace arrays {
             glm::vec3(1.0f), glm::vec3(1.0f), glm::vec3(1.0f), glm::vec3(0.3f), glm::vec3(1.0f), glm::vec3(1.0f)
     };
 
-    float spotLightFloatProperties[] = {
+    const float spotLightFloatProperties[] = {
         1.0f, 0.0f, 0.0f, glm::cos(glm::radians(45.0f)), glm::cos(glm::radians(45.0f))
     };
 
-    vector <string> faces
+    const vector <const char*> faces
     {
         "C:/Users/Tymek/Desktop/cubemaps/skybox (1)/skybox2/1.png",
         "C:/Users/Tymek/Desktop/cubemaps/skybox (1)/skybox2/3.png",
@@ -20,7 +20,7 @@ namespace arrays {
 
     };
 
-    float skyboxVertices[] = {
+    const float skyboxVertices[] = {
 
          1.0f, -1.0f, -1.0f,
          1.0f, -1.0f,  1.0f,
