@@ -141,11 +141,11 @@ void Gravity::findEllipse(int index, bool positive) {
 			dynamicArray[index - 1].assignArrayPlus.push_back(orbitVertices);
 
 		if (index > 5)
-			ellipseValues.currentX -= modelArray[index].peryhelion * 0.002 * double(index);
+			ellipseValues.currentX -= modelArray[index].peryhelion * 0.02 * double(index);
 		else if (index == 4)
 			ellipseValues.currentX -= 1E6 * scale;
 		else
-			ellipseValues.currentX -= modelArray[index].peryhelion * 0.001;
+			ellipseValues.currentX -= modelArray[index].peryhelion * 0.0005;
 		
 	}
 }
