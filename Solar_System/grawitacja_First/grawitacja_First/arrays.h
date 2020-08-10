@@ -11,13 +11,12 @@ namespace arrays {
 
     const vector <const char*> faces
     {
-        "C:/Users/Tymek/Desktop/cubemaps/skybox (1)/skybox2/1.png",
-        "C:/Users/Tymek/Desktop/cubemaps/skybox (1)/skybox2/3.png",
-        "C:/Users/Tymek/Desktop/cubemaps/skybox (1)/skybox2/5.png",
-        "C:/Users/Tymek/Desktop/cubemaps/skybox (1)/skybox2/6.png",
-        "C:/Users/Tymek/Desktop/cubemaps/skybox (1)/skybox2/2.png",
-        "C:/Users/Tymek/Desktop/cubemaps/skybox (1)/skybox2/4.png"
-
+        "C:/Users/Tymek/Desktop/art/resources/cubemaps/skybox (1)/skybox2/1.png",
+        "C:/Users/Tymek/Desktop/art/resources/cubemaps/skybox (1)/skybox2/3.png",
+        "C:/Users/Tymek/Desktop/art/resources/cubemaps/skybox (1)/skybox2/5.png",
+        "C:/Users/Tymek/Desktop/art/resources/cubemaps/skybox (1)/skybox2/6.png",
+        "C:/Users/Tymek/Desktop/art/resources/cubemaps/skybox (1)/skybox2/2.png",
+        "C:/Users/Tymek/Desktop/art/resources/cubemaps/skybox (1)/skybox2/4.png"
     };
 
     const float skyboxVertices[] = {
