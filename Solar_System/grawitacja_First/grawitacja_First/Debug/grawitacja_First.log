@@ -1,13 +1,1 @@
-﻿  camera.cpp
-c1xx : fatal error C1083: Nie można otworzyć pliku źródło: 'camera.cpp': No such file or directory
-  cubeClass.cpp
-c1xx : fatal error C1083: Nie można otworzyć pliku źródło: 'cubeClass.cpp': No such file or directory
-  gravityPhysics.cpp
-c1xx : fatal error C1083: Nie można otworzyć pliku źródło: 'gravityPhysics.cpp': No such file or directory
-  mainSource.cpp
-C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\used_classes\cube\cubeClass.h(14,10): fatal error C1083: Nie można otworzyć pliku dołącz: 'camera.h': No such file or directory
-  Shaders.cpp
-c1xx : fatal error C1083: Nie można otworzyć pliku źródło: 'Shaders.cpp': No such file or directory
-  WindowInit.h
-c1xx : fatal error C1083: Nie można otworzyć pliku źródło: 'WindowInit.h': No such file or directory
-  Generowanie kodu...
+﻿C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\grawitacja_First.vcxproj : error MSB4025: Nie można załadować pliku projektu. Nie można odnaleźć pliku 'C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\grawitacja_First.vcxproj'.
