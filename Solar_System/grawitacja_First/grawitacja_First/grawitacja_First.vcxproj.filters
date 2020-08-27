@@ -34,48 +34,69 @@
     <Filter Include="shaders\Cube map">
       <UniqueIdentifier>{b4588051-dda8-40f9-ba2b-d70a431257ec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PotrzebneKlasy\camera">
+      <UniqueIdentifier>{b66239da-ccfe-4b86-8364-34bcb3188d54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PotrzebneKlasy\asteroid_belt">
+      <UniqueIdentifier>{29c35fac-73e6-4afa-8f42-85b26db9c5c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PotrzebneKlasy\cube">
+      <UniqueIdentifier>{531319b1-fe66-4a71-ae61-9805b1c2768e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PotrzebneKlasy\skyblock">
+      <UniqueIdentifier>{3600d794-e3ec-4474-a428-e3403d68d608}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PotrzebneKlasy\axis_lines">
+      <UniqueIdentifier>{bdbe0fce-8838-4e0e-a3ef-fe6026b370fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PotrzebneKlasy\model_loading">
+      <UniqueIdentifier>{b4610e69-3efd-49e6-a3dd-246788a6818a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PotrzebneKlasy\physics">
+      <UniqueIdentifier>{38e4bc2b-a4dc-4a60-bec3-648820404f67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PotrzebneKlasy\orbitals">
+      <UniqueIdentifier>{ee39d28d-5aa6-482e-84f4-189ee8a4dded}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PotrzebneKlasy\shaders_managment">
+      <UniqueIdentifier>{6acf1877-44fa-4f62-8a9b-f97f017b61b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PotrzebneKlasy\window_init">
+      <UniqueIdentifier>{0c62655d-fde3-4a60-ab7a-468e7f9eda7d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Źródło.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="WindowInit.h">
-      <Filter>PotrzebneKlasy</Filter>
-    </ClCompile>
-    <ClCompile Include="camera.cpp">
-      <Filter>PotrzebneKlasy</Filter>
-    </ClCompile>
-    <ClCompile Include="cubeClass.cpp">
-      <Filter>PotrzebneKlasy</Filter>
-    </ClCompile>
-    <ClCompile Include="Shaders.cpp">
-      <Filter>PotrzebneKlasy</Filter>
-    </ClCompile>
     <ClCompile Include="mainSource.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Dependencies\GLAD\src\glad.c">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>PotrzebneKlasy\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="cubeClass.cpp">
+      <Filter>PotrzebneKlasy\cube</Filter>
+    </ClCompile>
     <ClCompile Include="gravityPhysics.cpp">
-      <Filter>PotrzebneKlasy</Filter>
+      <Filter>PotrzebneKlasy\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Shaders.cpp">
+      <Filter>PotrzebneKlasy\shaders_managment</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowInit.h">
+      <Filter>PotrzebneKlasy\window_init</Filter>
+    </ClCompile>
+    <ClCompile Include="stb_setup.cpp">
+      <Filter>Pliki źródłowe</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="Shaders.h">
-      <Filter>PotrzebneKlasy</Filter>
-    </ClInclude>
     <ClInclude Include="variables.h">
       <Filter>Pliki źródłowe\namespaces</Filter>
-    </ClInclude>
-    <ClInclude Include="camera.h">
-      <Filter>PotrzebneKlasy</Filter>
-    </ClInclude>
-    <ClInclude Include="cubeClass.h">
-      <Filter>PotrzebneKlasy</Filter>
     </ClInclude>
     <ClInclude Include="OBJloader.h">
       <Filter>Pliki nagłówkowe</Filter>
@@ -92,26 +113,35 @@
     <ClInclude Include="vectors.h">
       <Filter>Pliki źródłowe\namespaces</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Dependencies\headers\mesh.h">
-      <Filter>PotrzebneKlasy</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Dependencies\headers\model.h">
-      <Filter>PotrzebneKlasy</Filter>
-    </ClInclude>
-    <ClInclude Include="gravityPhysics.h">
-      <Filter>PotrzebneKlasy</Filter>
-    </ClInclude>
-    <ClInclude Include="cubemap.h">
-      <Filter>PotrzebneKlasy</Filter>
-    </ClInclude>
-    <ClInclude Include="orbitClass.h">
-      <Filter>PotrzebneKlasy</Filter>
-    </ClInclude>
-    <ClInclude Include="axisLines.h">
-      <Filter>PotrzebneKlasy</Filter>
+    <ClInclude Include="camera.h">
+      <Filter>PotrzebneKlasy\camera</Filter>
     </ClInclude>
     <ClInclude Include="asteroid.h">
-      <Filter>PotrzebneKlasy</Filter>
+      <Filter>PotrzebneKlasy\asteroid_belt</Filter>
+    </ClInclude>
+    <ClInclude Include="cubeClass.h">
+      <Filter>PotrzebneKlasy\cube</Filter>
+    </ClInclude>
+    <ClInclude Include="cubemap.h">
+      <Filter>PotrzebneKlasy\skyblock</Filter>
+    </ClInclude>
+    <ClInclude Include="axisLines.h">
+      <Filter>PotrzebneKlasy\axis_lines</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Dependencies\headers\mesh.h">
+      <Filter>PotrzebneKlasy\model_loading</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Dependencies\headers\model.h">
+      <Filter>PotrzebneKlasy\model_loading</Filter>
+    </ClInclude>
+    <ClInclude Include="gravityPhysics.h">
+      <Filter>PotrzebneKlasy\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="orbitClass.h">
+      <Filter>PotrzebneKlasy\orbitals</Filter>
+    </ClInclude>
+    <ClInclude Include="Shaders.h">
+      <Filter>PotrzebneKlasy\shaders_managment</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

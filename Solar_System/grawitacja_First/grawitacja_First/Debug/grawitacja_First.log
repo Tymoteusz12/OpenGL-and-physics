@@ -1,2 +1,63 @@
-﻿  WindowInit.h
+﻿  mainSource.cpp
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\Dependencies\headers\mesh.h(63,45): warning C4244: "argument": konwersja z "unsigned int" do "float", możliwa utrata danych
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\orbitClass.h(27,21): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\orbitClass.h(35,83): warning C4244: "=": konwersja z "T" do "float", możliwa utrata danych
+          with
+          [
+              T=double
+          ]
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\orbitClass.h(36,87): warning C4244: "=": konwersja z "T" do "float", możliwa utrata danych
+          with
+          [
+              T=double
+          ]
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\orbitClass.h(37,87): warning C4244: "=": konwersja z "T" do "float", możliwa utrata danych
+          with
+          [
+              T=double
+          ]
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\orbitClass.h(41,90): warning C4244: "=": konwersja z "T" do "float", możliwa utrata danych
+          with
+          [
+              T=double
+          ]
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\orbitClass.h(42,94): warning C4244: "=": konwersja z "T" do "float", możliwa utrata danych
+          with
+          [
+              T=double
+          ]
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\orbitClass.h(43,96): warning C4244: "=": konwersja z "T" do "float", możliwa utrata danych
+          with
+          [
+              T=double
+          ]
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\orbitClass.h(50,21): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\orbitClass.h(103,21): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\asteroid.h(16,8): warning C4091: "": zignorowano na lewo od "Gravity" podczas gdy brak deklaracji zmiennej
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\asteroid.h(17,6): warning C4091: "": zignorowano na lewo od "Model" podczas gdy brak deklaracji zmiennej
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\asteroid.h(50,20): warning C4244: "argument": konwersja z "double" do "unsigned int", możliwa utrata danych
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\asteroid.h(51,104): warning C4244: "inicjowanie": konwersja z "double" do "float", możliwa utrata danych
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\asteroid.h(51,26): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\asteroid.h(52,107): warning C4244: "inicjowanie": konwersja z "double" do "float", możliwa utrata danych
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\asteroid.h(52,29): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\asteroid.h(53,52): warning C4244: "inicjowanie": konwersja z "double" do "float", możliwa utrata danych
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\asteroid.h(53,25): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\asteroid.h(54,54): warning C4244: "inicjowanie": konwersja z "double" do "float", możliwa utrata danych
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\asteroid.h(54,27): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\asteroid.h(68,54): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\asteroid.h(74,54): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\asteroid.h(139,74): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\asteroid.h(141,51): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\asteroid.h(143,74): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\asteroid.h(150,34): warning C4244: "=": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\mainSource.cpp(31,8): warning C4091: "": zignorowano na lewo od "Gravity" podczas gdy brak deklaracji zmiennej
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\mainSource.cpp(109,23): warning C4244: "inicjowanie": konwersja z "double" do "float", możliwa utrata danych
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\mainSource.cpp(174,89): warning C4244: "argument": konwersja z "double" do "const float", możliwa utrata danych
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\mainSource.cpp(174,95): warning C4305: "argument": obcięcie z "const double" do "const float"
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\mainSource.cpp(191,30): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\grawitacja_First\mainSource.cpp(242,65): warning C4244: "argument": konwersja z "double" do "T", możliwa utrata danych
+          with
+          [
+              T=float
+          ]
   grawitacja_First.vcxproj -> C:\Users\Tymek\Documents\GitHub\OpenGL\OpenGL-and-physics\Solar_System\grawitacja_First\Debug\grawitacja_First.exe
