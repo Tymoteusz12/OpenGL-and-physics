@@ -122,12 +122,6 @@
     <ClInclude Include="axisLines.h">
       <Filter>PotrzebneKlasy\axis_lines</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Dependencies\headers\mesh.h">
-      <Filter>PotrzebneKlasy\model_loading</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Dependencies\headers\model.h">
-      <Filter>PotrzebneKlasy\model_loading</Filter>
-    </ClInclude>
     <ClInclude Include="gravityPhysics.h">
       <Filter>PotrzebneKlasy\physics</Filter>
     </ClInclude>
@@ -139,6 +133,12 @@
     </ClInclude>
     <ClInclude Include="used_classes\headers\WindowInit.h">
       <Filter>PotrzebneKlasy\window_init</Filter>
+    </ClInclude>
+    <ClInclude Include="used_classes\headers\mesh.h">
+      <Filter>PotrzebneKlasy\model_loading</Filter>
+    </ClInclude>
+    <ClInclude Include="used_classes\headers\model.h">
+      <Filter>PotrzebneKlasy\model_loading</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -154,8 +154,6 @@
     <ClCompile Include="stb_setup.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Dependencies\headers\mesh.h" />
-    <ClInclude Include="..\..\Dependencies\headers\model.h" />
     <ClInclude Include="arrays.h" />
     <ClInclude Include="asteroid.h" />
     <ClInclude Include="axisLines.h" />
@@ -169,6 +167,8 @@
     <ClInclude Include="orbitClass.h" />
     <ClInclude Include="Shaders.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="used_classes\headers\mesh.h" />
+    <ClInclude Include="used_classes\headers\model.h" />
     <ClInclude Include="used_classes\headers\WindowInit.h" />
     <ClInclude Include="variables.h" />
     <ClInclude Include="vectors.h" />
