@@ -146,9 +146,9 @@ int main(void)
 	model3D* viewModel = new model3D(&mainCamera, BlockShader, glm::vec3(0.0f), glm::vec3(0.0f));
 	{
 		cout << "Loading models... " << endl;
-		Model sunModel("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/sun.obj");
-		Model planetModel("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/planet.obj");
-		Model rock("C:/Users/Tymek/Documents/BlenderObjFiles/solar_system/objects/rock.obj");
+		Model sunModel("models/sun.obj");
+		Model planetModel("models/planet.obj");
+		Model rock("models/rock.obj");
 
 		cout << "Loading textures... " << endl;
 		loadViewModelTextures(viewModel);

@@ -16,7 +16,7 @@ public:
 		glfwWindowHint(GLFW_SAMPLES, 4);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-		window = glfwCreateWindow(800, 600, "LearnOPGL", NULL, NULL);
+		window = glfwCreateWindow(1024, 1024, "LearnOPGL", NULL, NULL);
 
 		if (window == NULL) {
 			cout << "Failed to create GLFW window. \n";
