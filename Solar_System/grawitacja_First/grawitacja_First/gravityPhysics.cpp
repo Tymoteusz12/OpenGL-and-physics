@@ -1,4 +1,4 @@
-#include "gravityPhysics.h"
+#include "used_classes/headers/gravityPhysics.h"
 
 struct Gravity::ellipseProperties {
 	const double moonRadius;
