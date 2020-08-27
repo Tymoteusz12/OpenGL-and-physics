@@ -3,20 +3,20 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include "Shaders.h"
-#include "WindowInit.h"
-#include "gravityPhysics.h"
+#include "used_classes/shaders_loader/Shaders.h"
+#include "used_classes/window_init/WindowInit.h"
+#include "used_classes/physics/gravityPhysics.h"
 #include "variables/variables.h"
 #include "used_classes/camera/camera.h"
-#include "cubeClass.h"
+#include "used_classes/cube/cubeClass.h"
 #include "model.h"
 #include "variables/booleans.h"
 #include "variables/complexTypes.h"
 #include "variables/arrays.h"
 #include "variables/vectors.h"
-#include "cubemap.h"
+#include "used_classes/skybox/cubemap.h"
 #include "used_classes/orbitals/orbitClass.h"
-#include "axisLines.h"
+#include "used_classes/axis_lines/axisLines.h"
 #include "used_classes/asteroid_belt/asteroid.h"
 #include <iostream>
 
