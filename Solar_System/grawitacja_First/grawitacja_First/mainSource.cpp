@@ -7,7 +7,7 @@
 #include "WindowInit.h"
 #include "gravityPhysics.h"
 #include "variables/variables.h"
-#include "camera.h"
+#include "used_classes/camera/camera.h"
 #include "cubeClass.h"
 #include "model.h"
 #include "variables/booleans.h"
@@ -15,9 +15,9 @@
 #include "variables/arrays.h"
 #include "variables/vectors.h"
 #include "cubemap.h"
-#include "orbitClass.h"
+#include "used_classes/orbitals/orbitClass.h"
 #include "axisLines.h"
-#include "asteroid.h"
+#include "used_classes/asteroid_belt/asteroid.h"
 #include <iostream>
 
 using namespace std;

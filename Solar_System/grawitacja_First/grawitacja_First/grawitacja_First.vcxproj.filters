@@ -28,9 +28,6 @@
     <Filter Include="shaders\ObjectShaders">
       <UniqueIdentifier>{b5fb6af8-420e-4137-af61-59bd58c9caba}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pliki źródłowe\includes">
-      <UniqueIdentifier>{c055fddb-932b-4a54-b98a-4c7269567976}</UniqueIdentifier>
-    </Filter>
     <Filter Include="shaders\Cube map">
       <UniqueIdentifier>{b4588051-dda8-40f9-ba2b-d70a431257ec}</UniqueIdentifier>
     </Filter>
