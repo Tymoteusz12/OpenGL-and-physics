@@ -59,7 +59,7 @@
       <UniqueIdentifier>{6acf1877-44fa-4f62-8a9b-f97f017b61b5}</UniqueIdentifier>
     </Filter>
     <Filter Include="PotrzebneKlasy\window_init">
-      <UniqueIdentifier>{0c62655d-fde3-4a60-ab7a-468e7f9eda7d}</UniqueIdentifier>
+      <UniqueIdentifier>{966c729b-0073-4c52-a694-e2b1513bcf5f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -80,9 +80,6 @@
     </ClCompile>
     <ClCompile Include="Shaders.cpp">
       <Filter>PotrzebneKlasy\shaders_managment</Filter>
-    </ClCompile>
-    <ClCompile Include="WindowInit.h">
-      <Filter>PotrzebneKlasy\window_init</Filter>
     </ClCompile>
     <ClCompile Include="stb_setup.cpp">
       <Filter>Pliki źródłowe</Filter>
@@ -139,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="Shaders.h">
       <Filter>PotrzebneKlasy\shaders_managment</Filter>
+    </ClInclude>
+    <ClInclude Include="used_classes\headers\WindowInit.h">
+      <Filter>PotrzebneKlasy\window_init</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

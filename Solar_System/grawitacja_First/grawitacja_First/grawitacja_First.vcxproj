@@ -151,7 +151,6 @@
     <ClCompile Include="gravityPhysics.cpp" />
     <ClCompile Include="mainSource.cpp" />
     <ClCompile Include="Shaders.cpp" />
-    <ClCompile Include="WindowInit.h" />
     <ClCompile Include="stb_setup.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +169,7 @@
     <ClInclude Include="orbitClass.h" />
     <ClInclude Include="Shaders.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="used_classes\headers\WindowInit.h" />
     <ClInclude Include="variables.h" />
     <ClInclude Include="vectors.h" />
   </ItemGroup>
