@@ -9,7 +9,7 @@
 #include "variables/variables.h"
 #include "used_classes/headers/camera.h"
 #include "used_classes/headers/cubeClass.h"
-#include "model.h"
+#include "used_classes/headers/model.h"
 #include "variables/booleans.h"
 #include "variables/complexTypes.h"
 #include "variables/arrays.h"
