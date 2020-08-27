@@ -1,4 +1,4 @@
-#include "cubeClass.h"
+#include "used_classes/headers/cubeClass.h"
 
 model3D::model3D(Camera* cameraPointer, CreateShader* shaderPointer, glm::vec3 gravityForce, glm::vec3 frictionForce) :
 	cameraPointer(cameraPointer), shaderPointer(shaderPointer), gravityForce(gravityForce),

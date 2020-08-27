@@ -1,4 +1,4 @@
-#include "camera.h"
+#include "used_classes/headers/camera.h"
 
 Camera::Camera(const float width, const float height, const glm::vec3 gravityForce) :
 	width(width), height(height), gravity(gravityForce), lastx(width / 2), lasty(height / 2) 
