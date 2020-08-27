@@ -6,14 +6,14 @@
 #include "Shaders.h"
 #include "WindowInit.h"
 #include "gravityPhysics.h"
-#include "variables.h"
+#include "variables/variables.h"
 #include "camera.h"
 #include "cubeClass.h"
 #include "model.h"
-#include "booleans.h"
-#include "complexTypes.h"
-#include "arrays.h"
-#include "vectors.h"
+#include "variables/booleans.h"
+#include "variables/complexTypes.h"
+#include "variables/arrays.h"
+#include "variables/vectors.h"
 #include "cubemap.h"
 #include "orbitClass.h"
 #include "axisLines.h"
@@ -137,11 +137,11 @@ int main(void)
 		return -1;
 	}
 
-	CreateShader* BlockShader = new CreateShader("VertexShaderCode.glsl", "FragmentShaderCode.glsl");
-	CreateShader* skyShader = new CreateShader("cubeVertex.glsl", "cubeFragment.glsl");
-	CreateShader* orbitShader = new CreateShader("orbitVertex.glsl", "orbitFragment.glsl");
-	CreateShader* test = new CreateShader("testV.glsl", "testF.glsl");
-	CreateShader* asteroidShader = new CreateShader("asteroidV.glsl", "asteroidF.glsl");
+	CreateShader* BlockShader = new CreateShader("Shaders/VertexShaderCode.glsl", "Shaders/FragmentShaderCode.glsl");
+	CreateShader* skyShader = new CreateShader("Shaders/cubeVertex.glsl", "Shaders/cubeFragment.glsl");
+	CreateShader* orbitShader = new CreateShader("Shaders/orbitVertex.glsl", "Shaders/orbitFragment.glsl");
+	CreateShader* test = new CreateShader("Shaders/testV.glsl", "Shaders/testF.glsl");
+	CreateShader* asteroidShader = new CreateShader("Shaders/asteroidV.glsl", "Shaders/asteroidF.glsl");
 
 	model3D* viewModel = new model3D(&mainCamera, BlockShader, glm::vec3(0.0f), glm::vec3(0.0f));
 	{
