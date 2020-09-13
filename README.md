@@ -1,2 +1,3 @@
 # OpenGL-and-physics
-Having fun with physics by learning OpenGL 
+
+Solar system 3D model
