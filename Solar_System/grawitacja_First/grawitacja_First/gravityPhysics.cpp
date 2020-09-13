@@ -18,9 +18,9 @@ void Gravity::loadSunData() {
 
 	cout << "Loading sun data..." << endl;
 	
-	sun.mass = 1.989E30 * scale ;
+	sun.mass = 1.989E30;
 
-	sun.radius = 6.96E8 * scale * 0.333f;
+	sun.radius = 6.96E8 * scale * 0.333f; // we multiple by 0.333f, because Sun loaded model is 3 times bigger than model of the planets
 
 	modelArray.push_back(sun);
 	gravityVelocity.push_back(glm::vec3(0.0f));
@@ -51,31 +51,35 @@ void Gravity::loadPlanetsData() {
 
 	for (unsigned int i = 0; i < modelAmount; i++) {
 		
-		planet.mass = planetData[i * 4 + 3] * scale;
-		planet.radius = planetData[i * 4 + 2] * scale;
+		planet.mass = planetData[i * 4 + 3]; // we want to keep planets mass
+		planet.radius = planetData[i * 4 + 2] * scale * 50; // multiply by 50 so planets are more visible!!
 		planet.peryhelion = planetData[i * 4 + 1] * scale;
 		planet.aphelion = planetData[i * 4] * scale;
 
-		planet.position = glm::vec3(planet.peryhelion, 0.0f, 0.0f);
 		if (i != 3) {
-			const double vMax = findModelSpeed(planet, modelArray[0]);
-			planet.vMax = glm::vec3(0.0f, 0.0f, -vMax);
+			planet.position = glm::dvec3(planet.peryhelion, 0.0f, 0.0f);
+			const double vMax = findModelSpeed(planet.peryhelion, modelArray[0]);
+			planet.vMax = glm::dvec3(0.0f, 0.0f, -vMax);
 		}
-		if (i == 2)
-			planet.vMax += glm::dvec3(0.0f, 0.0f, sqrt(constG * modelArray[2].mass / 3.844));
-		else if (i == 3)
-			planet.vMax = modelArray[3].vMax + glm::dvec3(0.0f, 0.0f, sqrt(constG * modelArray[2].mass / 3.844));
+
+		if (i == 2) {
+			planet.vMax.z += sqrt(constG * 7.348E22 / 38.44);
+		}
+		else if ( i == 3 ){ // we calculate Moon speed, so it will circulate around Earth
+			planet.position = glm::dvec3(planet.peryhelion, 0.0f, 0.0f);
+			const double vMax = -modelArray[3].vMax.z + sqrt(constG * modelArray[3].mass / 38.44);
+			planet.vMax = glm::dvec3(0.0f, 0.0f, -vMax);
+		}
+		
 
 		modelArray.push_back(planet);
 		gravityVelocity.push_back(glm::vec3(0.0f));
 	}
 }
 
-const double Gravity::findModelSpeed(modelData planet, modelData sun){
+const double Gravity::findModelSpeed(const double peryhelion, modelData sun){
 
-	const double constVal = -2 * constG * sun.mass * (1 / planet.aphelion - 1 / planet.peryhelion);
-	const double kepler = 1 - pow(planet.peryhelion / planet.aphelion, 2.0f);
-	const double vMax = sqrt(constVal / kepler);
+	const double vMax = sqrt(constG * sun.mass / peryhelion);
 
 	return vMax;
 }
@@ -152,8 +156,8 @@ void Gravity::findEllipse(int index, bool positive) {
 
 void Gravity::updatePosition(int index) {
 
-	gravityVelocity[index] += resultantForce * refreshValue * 1E8;
-	modelArray[index].position += (modelArray[index].vMax + gravityVelocity[index]) * refreshValue * 1E8;
+	gravityVelocity[index] += resultantForce * refreshValue;
+	modelArray[index].position += (modelArray[index].vMax + gravityVelocity[index]) * refreshValue;
 }
 
 void Gravity::assignValuesForMoon(ellipseProperties& moonEllipse, glm::dvec3 &centerPoint) {

@@ -51,7 +51,7 @@ public:
 		const float marsRadius = (solarSystem.modelArray[4].aphelion + solarSystem.modelArray[4].peryhelion) / 2;
 		const float jupiterRadius = (solarSystem.modelArray[5].aphelion + solarSystem.modelArray[5].peryhelion) / 2;
 		const float earthMass = solarSystem.modelArray[3].mass;
-		const float earthRadius = solarSystem.modelArray[3].radius;
+		const float earthRadius = solarSystem.modelArray[3].radius / 50; // divide by 50, so asteroids will not grow like planets
 		float radius = jupiterRadius + marsRadius;
 		float offset = (jupiterRadius - marsRadius)*2;
 		glm::vec3 correction = glm::vec3(offset, 0.0f, offset);

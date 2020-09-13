@@ -154,18 +154,18 @@
     <ClCompile Include="stb_setup.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="asteroid.h" />
-    <ClInclude Include="axisLines.h" />
-    <ClInclude Include="camera.h" />
-    <ClInclude Include="cubeClass.h" />
-    <ClInclude Include="cubemap.h" />
-    <ClInclude Include="gravityPhysics.h" />
     <ClInclude Include="OBJloader.h" />
-    <ClInclude Include="orbitClass.h" />
-    <ClInclude Include="Shaders.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="used_classes\headers\asteroid.h" />
+    <ClInclude Include="used_classes\headers\axisLines.h" />
+    <ClInclude Include="used_classes\headers\camera.h" />
+    <ClInclude Include="used_classes\headers\cubeClass.h" />
+    <ClInclude Include="used_classes\headers\cubemap.h" />
+    <ClInclude Include="used_classes\headers\gravityPhysics.h" />
     <ClInclude Include="used_classes\headers\mesh.h" />
     <ClInclude Include="used_classes\headers\model.h" />
+    <ClInclude Include="used_classes\headers\orbitClass.h" />
+    <ClInclude Include="used_classes\headers\Shaders.h" />
     <ClInclude Include="used_classes\headers\WindowInit.h" />
     <ClInclude Include="variables\arrays.h" />
     <ClInclude Include="variables\booleans.h" />

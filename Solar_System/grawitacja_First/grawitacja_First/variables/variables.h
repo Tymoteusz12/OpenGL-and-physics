@@ -7,8 +7,8 @@ namespace variables {
 	constexpr float viewAngle = 45.0f;
 	float deltaTime = 0.0f, currentFrame = 0.0f, lastFrame = 0.0f;
 
-	const double refreshValue = 1.0E-15;
+	const double refreshValue = 1.0E-1; // increasing causes accuracy drop
 
-	const double constG = 6.6743E-11;
+	const double constG = 6.6743E-24;
 }
 #endif

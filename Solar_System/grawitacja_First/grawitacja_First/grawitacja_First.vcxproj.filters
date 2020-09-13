@@ -92,30 +92,6 @@
     <ClInclude Include="OBJloader.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="camera.h">
-      <Filter>PotrzebneKlasy\camera</Filter>
-    </ClInclude>
-    <ClInclude Include="asteroid.h">
-      <Filter>PotrzebneKlasy\asteroid_belt</Filter>
-    </ClInclude>
-    <ClInclude Include="cubeClass.h">
-      <Filter>PotrzebneKlasy\cube</Filter>
-    </ClInclude>
-    <ClInclude Include="cubemap.h">
-      <Filter>PotrzebneKlasy\skyblock</Filter>
-    </ClInclude>
-    <ClInclude Include="axisLines.h">
-      <Filter>PotrzebneKlasy\axis_lines</Filter>
-    </ClInclude>
-    <ClInclude Include="gravityPhysics.h">
-      <Filter>PotrzebneKlasy\physics</Filter>
-    </ClInclude>
-    <ClInclude Include="orbitClass.h">
-      <Filter>PotrzebneKlasy\orbitals</Filter>
-    </ClInclude>
-    <ClInclude Include="Shaders.h">
-      <Filter>PotrzebneKlasy\shaders_managment</Filter>
-    </ClInclude>
     <ClInclude Include="used_classes\headers\WindowInit.h">
       <Filter>PotrzebneKlasy\window_init</Filter>
     </ClInclude>
@@ -139,6 +115,30 @@
     </ClInclude>
     <ClInclude Include="variables\vectors.h">
       <Filter>Pliki źródłowe\namespaces</Filter>
+    </ClInclude>
+    <ClInclude Include="used_classes\headers\asteroid.h">
+      <Filter>PotrzebneKlasy\asteroid_belt</Filter>
+    </ClInclude>
+    <ClInclude Include="used_classes\headers\axisLines.h">
+      <Filter>PotrzebneKlasy\axis_lines</Filter>
+    </ClInclude>
+    <ClInclude Include="used_classes\headers\camera.h">
+      <Filter>PotrzebneKlasy\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="used_classes\headers\cubeClass.h">
+      <Filter>PotrzebneKlasy\cube</Filter>
+    </ClInclude>
+    <ClInclude Include="used_classes\headers\orbitClass.h">
+      <Filter>PotrzebneKlasy\orbitals</Filter>
+    </ClInclude>
+    <ClInclude Include="used_classes\headers\gravityPhysics.h">
+      <Filter>PotrzebneKlasy\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="used_classes\headers\Shaders.h">
+      <Filter>PotrzebneKlasy\shaders_managment</Filter>
+    </ClInclude>
+    <ClInclude Include="used_classes\headers\cubemap.h">
+      <Filter>PotrzebneKlasy\skyblock</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
