@@ -89,23 +89,8 @@
     <ClInclude Include="resource.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="variables.h">
-      <Filter>Pliki źródłowe\namespaces</Filter>
-    </ClInclude>
     <ClInclude Include="OBJloader.h">
       <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
-    <ClInclude Include="booleans.h">
-      <Filter>Pliki źródłowe\namespaces</Filter>
-    </ClInclude>
-    <ClInclude Include="complexTypes.h">
-      <Filter>Pliki źródłowe\namespaces</Filter>
-    </ClInclude>
-    <ClInclude Include="arrays.h">
-      <Filter>Pliki źródłowe\namespaces</Filter>
-    </ClInclude>
-    <ClInclude Include="vectors.h">
-      <Filter>Pliki źródłowe\namespaces</Filter>
     </ClInclude>
     <ClInclude Include="camera.h">
       <Filter>PotrzebneKlasy\camera</Filter>
@@ -139,6 +124,21 @@
     </ClInclude>
     <ClInclude Include="used_classes\headers\model.h">
       <Filter>PotrzebneKlasy\model_loading</Filter>
+    </ClInclude>
+    <ClInclude Include="variables\arrays.h">
+      <Filter>Pliki źródłowe\namespaces</Filter>
+    </ClInclude>
+    <ClInclude Include="variables\booleans.h">
+      <Filter>Pliki źródłowe\namespaces</Filter>
+    </ClInclude>
+    <ClInclude Include="variables\complexTypes.h">
+      <Filter>Pliki źródłowe\namespaces</Filter>
+    </ClInclude>
+    <ClInclude Include="variables\variables.h">
+      <Filter>Pliki źródłowe\namespaces</Filter>
+    </ClInclude>
+    <ClInclude Include="variables\vectors.h">
+      <Filter>Pliki źródłowe\namespaces</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -154,12 +154,9 @@
     <ClCompile Include="stb_setup.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="arrays.h" />
     <ClInclude Include="asteroid.h" />
     <ClInclude Include="axisLines.h" />
-    <ClInclude Include="booleans.h" />
     <ClInclude Include="camera.h" />
-    <ClInclude Include="complexTypes.h" />
     <ClInclude Include="cubeClass.h" />
     <ClInclude Include="cubemap.h" />
     <ClInclude Include="gravityPhysics.h" />
@@ -170,8 +167,11 @@
     <ClInclude Include="used_classes\headers\mesh.h" />
     <ClInclude Include="used_classes\headers\model.h" />
     <ClInclude Include="used_classes\headers\WindowInit.h" />
-    <ClInclude Include="variables.h" />
-    <ClInclude Include="vectors.h" />
+    <ClInclude Include="variables\arrays.h" />
+    <ClInclude Include="variables\booleans.h" />
+    <ClInclude Include="variables\complexTypes.h" />
+    <ClInclude Include="variables\variables.h" />
+    <ClInclude Include="variables\vectors.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="asteroidF.glsl" />
