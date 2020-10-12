@@ -48,7 +48,7 @@ private:
 	const double refreshValue;
 	struct ellipseProperties;
 	glm::dvec3 resultantForce;
-	const double findModelSpeed(const double, modelData);
+	const double findModelSpeed(modelData, modelData);
 	void assignValuesForMoon(ellipseProperties&, glm::dvec3&);
 	bool isMoon(unsigned int);
 	

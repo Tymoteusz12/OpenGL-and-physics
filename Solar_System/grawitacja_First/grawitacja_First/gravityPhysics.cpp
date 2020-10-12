@@ -58,7 +58,7 @@ void Gravity::loadPlanetsData() {
 
 		if (i != 3) {
 			planet.position = glm::dvec3(planet.peryhelion, 0.0f, 0.0f);
-			const double vMax = findModelSpeed(planet.peryhelion, modelArray[0]);
+			const double vMax = findModelSpeed(planet, modelArray[0]);
 			planet.vMax = glm::dvec3(0.0f, 0.0f, -vMax);
 		}
 
@@ -77,9 +77,10 @@ void Gravity::loadPlanetsData() {
 	}
 }
 
-const double Gravity::findModelSpeed(const double peryhelion, modelData sun){
-
-	const double vMax = sqrt(constG * sun.mass / peryhelion);
+const double Gravity::findModelSpeed(modelData planet, modelData sun){
+	const double constVal = -2 * constG * sun.mass * (1 / planet.aphelion - 1 / planet.peryhelion);
+	const double kepler = 1 - pow(planet.peryhelion / planet.aphelion, 2.0f);
+	const double vMax = sqrt(constVal / kepler);
 
 	return vMax;
 }
