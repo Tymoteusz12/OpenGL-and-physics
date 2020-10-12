@@ -6,3 +6,6 @@ Camera moves with the Speed of Light, distances from the Sun are more or less ex
 It is a project which mainly purpuse is learning OpenGL and train c++ programming.
 
 Did not add the angles of inclination and declination for certain planets and Earth Moon. Saturn ring is just for visual purposes.
+
+=============READ=============
+Need to fix elipses and simplify code for pointing them out
