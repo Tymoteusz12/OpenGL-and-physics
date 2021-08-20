@@ -8,6 +8,6 @@ It is a project which mainly purpuse is learning OpenGL and train c++ programmin
 Did not add the angles of inclination and declination for certain planets and Earth Moon. Saturn ring is just for visual purposes.
 
 =============READ=============
-Project demo can be found here: 
+- Project demo can be found here: 
 https://tymoteusz12.github.io/projects
-Need to simplify code for pointing ellipses out
+- Need to simplify code for pointing ellipses out
